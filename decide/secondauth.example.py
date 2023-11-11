@@ -1,4 +1,4 @@
-from decide.settings import *
+from decide.decide.settings import *
 
 # Modules in use, commented modules that you won't use
 MODULES = [
