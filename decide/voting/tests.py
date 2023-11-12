@@ -24,27 +24,6 @@ from voting.models import Voting, Question, QuestionOption
 from datetime import datetime
 
 class VotingModelTestCase(BaseTestCase):
-    def test_create_voting_API(self):
-        self.login()
-        data = {
-            'name': 'Example',
-            'desc': 'Description example',
-            'question': 'I want a ',
-            'question_opt': ['cat', 'dog', 'horse']
-        }
-
-        response = self.client.post('/voting/', data, format='json')
-        self.assertEqual(response.status_code, 201)
-
-        voting = Voting.objects.get(name='Example')
-        self.assertEqual(voting.desc, 'Description example')
-        
-    def test_update_voting_405(self):
-        v = self.create_voting()
-        data = {} #El campo action es requerido en la request
-        self.login()
-        response = self.client.post('/voting/{}/'.format(v.pk), data, format= 'json')
-        self.assertEquals(response.status_code, 405)
         
     def setUp(self):
         q = Question(desc='Descripcion')
@@ -67,16 +46,6 @@ class VotingModelTestCase(BaseTestCase):
         v=Voting.objects.get(name='Votacion')
         self.assertEquals(v.question.options.all()[0].option, "opcion 1")
 class VotingTestCase(BaseTestCase):
-
-    def test_to_string(self):
-        #Crea un objeto votacion
-        v = self.create_voting()
-        #Verifica que el nombre de la votacion es test voting
-        self.assertEquals(str(v),"test voting")
-        #Verifica que la descripcion de la pregunta sea test question
-        self.assertEquals(str(v.question),"test question")
-        #Verifica que la primera opcion es option1 (2)
-        self.assertEquals(str(v.question.options.all()[0]),"option 1 (2)")
 
     def setUp(self):
         super().setUp()
@@ -268,6 +237,38 @@ class VotingTestCase(BaseTestCase):
         response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
         self.assertEqual(response.status_code, 400)
         self.assertEqual(response.json(), 'Voting already tallied')
+
+    def test_to_string(self):
+        #Crea un objeto votacion
+        v = self.create_voting()
+        #Verifica que el nombre de la votacion es test voting
+        self.assertEquals(str(v),"test voting")
+        #Verifica que la descripcion de la pregunta sea test question
+        self.assertEquals(str(v.question),"test question")
+        #Verifica que la primera opcion es option1 (2)
+        self.assertEquals(str(v.question.options.all()[0]),"option 1 (2)")
+    
+    def test_create_voting_API(self):
+        self.login()
+        data = {
+            'name': 'Example',
+            'desc': 'Description example',
+            'question': 'I want a ',
+            'question_opt': ['cat', 'dog', 'horse']
+        }
+
+        response = self.client.post('/voting/', data, format='json')
+        self.assertEqual(response.status_code, 201)
+
+        voting = Voting.objects.get(name='Example')
+        self.assertEqual(voting.desc, 'Description example')
+        
+    def test_update_voting_405(self):
+        v = self.create_voting()
+        data = {} #El campo action es requerido en la request
+        self.login()
+        response = self.client.post('/voting/{}/'.format(v.pk), data, format= 'json')
+        self.assertEquals(response.status_code, 405)
 
 class LogInSuccessTests(StaticLiveServerTestCase):
 
