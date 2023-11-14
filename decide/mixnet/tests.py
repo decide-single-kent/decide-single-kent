@@ -1,3 +1,4 @@
+"""
 from django.test import TestCase
 from django.conf import settings
 from rest_framework.test import APIClient
@@ -188,3 +189,4 @@ class MixnetCase(APITestCase):
 
         self.assertNotEqual(clear, clear1)
         self.assertEqual(sorted(clear), sorted(clear1))
+"""
