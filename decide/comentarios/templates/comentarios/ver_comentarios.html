@@ -1,0 +1,21 @@
+<!-- comentarios/templates/comentarios/ver_comentarios.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Comentarios</h2>
+    <ul class="list-group">
+        {% for comentario in comentarios %}
+            <li class="list-group-item">
+                <strong>{{ comentario.autor }}</strong>
+                <p>{{ comentario.texto }}</p>
+                <div>
+                    <a href="{% url 'editar_comentario' comentario.id %}" class="btn btn-secondary btn-sm">Editar</a>
+                    <a href="{% url 'borrar_comentario' comentario.id %}" class="btn btn-danger btn-sm">Borrar</a>
+                </div>
+            </li>
+        {% endfor %}
+    </ul>
+
+    <a class="btn btn-secondary mt-3" href="{% url 'agregar_comentario' %}">Agregar Comentario</a>
+{% endblock %}

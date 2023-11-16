@@ -1,14 +1,73 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8" />
-        <title>{% block title %}Decide!{% endblock %}</title>
-        {% block extrahead %}{% endblock %}
-    </head>
-    <body>
-        {% block content %}
-        {% endblock %}
+<!-- decide/templates/base_generic.html -->
 
-        {% block extrabody %}{% endblock %}
-    </body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Carga de las etiquetas estáticas -->
+    {% load static %}
+
+    <!-- Enlaces a Bootstrap -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+          crossorigin="anonymous">
+
+    <!-- Enlace al archivo CSS personalizado -->
+    <link rel="stylesheet" href="{% static 'css/comentarios-estilos.css' %}">
+
+    <!-- Metaetiquetas van aquí -->
+    <meta charset="utf-8" />
+    <title>{% block title %}Decide!{% endblock %}</title>
+    {% block extrahead %}{% endblock %}
+    <style>
+        /* Agrega reglas de estilo personalizadas aquí */
+        body {
+            display: flex;
+            min-height: 100vh;
+            align-items: center;
+            justify-content: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container text-center">
+        <!-- Barra de navegación -->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url 'admin:index' %}">Decide!</a>
+            
+            <!-- Enlaces de la barra de navegación -->
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="{% url 'admin:index' %}">Inicio</a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+
+        <!-- Contenido de la página -->
+        <div class="mt-4">
+            {% block content %}{% endblock %}
+        </div>
+
+        <!-- Pie de página -->
+        <footer class="mt-4">
+            <!-- Contenido del pie de página -->
+        </footer>
+    </div>
+
+    <!-- Scripts y otros enlaces van aquí -->
+    <!-- Enlaces a los scripts de Bootstrap y otros scripts si los necesitas -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"
+            integrity="sha384-pzjw8Y+JcdKDz9S1z0NqTt5i25pd0Pp12YlJ3xntqVEK+/aR5LUxI7HDU66j7Xoa"
+            crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+            integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+WyEhs1ptMtohI0lG6U5G5uW6pN53dA"
+            crossorigin="anonymous"></script>
+
+    <!-- Otros scripts van aquí -->
+    {% block extrabody %}{% endblock %}
+</body>
 </html>
