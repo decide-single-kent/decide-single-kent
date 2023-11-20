@@ -3,6 +3,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     <h2>Comentarios</h2>
     <ul class="list-group">
         {% for comentario in comentarios %}
@@ -16,6 +18,13 @@
             </li>
         {% endfor %}
     </ul>
+    <h1>Lista de Comentarios</h1>
+{% for comentario in comentarios %}
+    <p>{{ comentario.texto }}</p>
+    <p>Votos positivos: {{ comentario.votos_positivos }}, Votos negativos: {{ comentario.votos_negativos }}</p>
+    <a href="{% url 'votar_comentario' comentario.id 'positivo' %}">Me gusta</a>
+    <a href="{% url 'votar_comentario' comentario.id 'negativo' %}">No me gusta</a>
+{% endfor %}
 
     <a class="btn btn-secondary mt-3" href="{% url 'agregar_comentario' %}">Agregar Comentario</a>
 {% endblock %}
