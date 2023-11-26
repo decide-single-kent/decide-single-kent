@@ -1,0 +1,57 @@
+/* static/css/estilos.css */
+
+/* Estilos generales */
+body {
+    font-family: 'Arial', sans-serif; /* Tipo de fuente principal */
+    background-color:   #f9f9f9;
+}
+
+.container {
+    background-color: #b0adad;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos de la barra de navegación */
+.navbar {
+    color: #ffffff;
+}
+
+.navbar-brand {
+    font-size: 24px;
+    font-weight: bold; /* Texto del logotipo en negrita */
+}
+
+/* Estilos del contenido */
+.mt-4 {
+    margin-top: 20px;
+}
+
+/* Estilos del pie de página */
+footer {
+    padding: 10px;
+    text-align: center;
+    font-size: 14px; /* Tamaño de fuente del pie de página */
+    color: #6c757d; /* Color del texto del pie de página */
+}
+
+/* Estilos adicionales para los botones, formularios, etc. */
+.btn {
+    /* Estilos comunes para todos los botones */
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Estilos específicos para botones de color primario */
+.btn-primary {
+    background-color: rgb(187, 255, 0);
+    border-color: #ff0000;
+}
+
+/* Estilos para los formularios */
+form {
+    margin-bottom: 20px;
+}
+
+

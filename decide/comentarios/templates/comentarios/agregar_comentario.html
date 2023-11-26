@@ -1,0 +1,14 @@
+<!-- comentarios/templates/comentarios/agregar_comentario.html -->
+
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>Agregar Comentario</h2>
+    <form method="post" action="{% url 'agregar_comentario' %}" class="mt-3">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Agregar Comentario</button>
+    </form>
+
+    <a class="btn btn-secondary mt-3" href="{% url 'ver_comentarios' %}">Ver Comentarios</a>
+{% endblock %}
