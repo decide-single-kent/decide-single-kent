@@ -9,12 +9,6 @@ from django.http import HttpResponseForbidden
 from django.http import HttpResponse
 from django.http import HttpResponse, JsonResponse
 
-
-
-
-
-
-
 def ver_comentarios(request):
     comentarios = Comentario.objects.all()
     return render(request, 'comentarios/ver_comentarios.html', {'comentarios': comentarios})
@@ -91,11 +85,8 @@ def votar_comentario(request, comentario_id, voto):
         request.session[f'voto_{comentario_id}'] = voto
         comentario.save()
 
-        return JsonResponse({
-            'success': True,
-            'votos_positivos': comentario.votos_positivos,
-            'votos_negativos': comentario.votos_negativos
-        })
+        return HttpResponse('Votos actualizados correctamente')
+
 
     except Comentario.DoesNotExist:
         return JsonResponse({'success': False, 'error': 'Comentario no encontrado'})
