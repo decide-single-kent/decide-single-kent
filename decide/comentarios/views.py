@@ -62,13 +62,20 @@ def votar_comentario(request, comentario_id, voto):
         if voto_anterior is None:
             # El usuario no ha votado antes, vota positivo
             if voto == 'positivo':
-                comentario.votos_positivos += 1
+                comentario.votos_positivos = 1
+            else:
+                comentario.votos_negativos =1
+                
         else:
             # El usuario ya ha votado
             if voto == 'negativo':
                 # Votó negativo, resta 1 a positivos y suma 1 a negativos (no puede ser menos de 0)
                 comentario.votos_positivos = max(0, comentario.votos_positivos - 1)
-                comentario.votos_negativos += 1
+                comentario.votos_negativos = 1
+                
+            else :
+                comentario.votos_negativos= max(0, comentario.votos_negativos - 1)
+                comentario.votos_positivos = 1
 
             # Guardar el voto actual en la sesión del usuario
             request.session[f'voto_{comentario_id}'] = voto

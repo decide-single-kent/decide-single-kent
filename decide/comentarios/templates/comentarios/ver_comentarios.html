@@ -1,30 +1,56 @@
-<!-- comentarios/templates/comentarios/ver_comentarios.html -->
-
 {% extends 'base.html' %}
 
 {% block content %}
-<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<section style="background-color: #e7effd;">
+  <div class="container my-5 py-5 text-dark">
+    <div class="row d-flex justify-content-center">
+      <div class="col-md-11 col-lg-9 col-xl-7">
 
-    <h2>Comentarios</h2>
-    <ul class="list-group">
-        {% for comentario in comentarios %}
+        <!-- Tu bucle para mostrar comentarios -->
+        <ul class="list-group">
+          {% for comentario in comentarios %}
             <li class="list-group-item">
-                <strong>{{ comentario.autor }}</strong>
-                <p>{{ comentario.texto }}</p>
-                <div>
-                    <a href="{% url 'editar_comentario' comentario.id %}" class="btn btn-secondary btn-sm">Editar</a>
-                    <a href="{% url 'borrar_comentario' comentario.id %}" class="btn btn-danger btn-sm">Borrar</a>
-                </div>
-            </li>
-        {% endfor %}
-    </ul>
-    <h1>Lista de Comentarios</h1>
-{% for comentario in comentarios %}
-    <p>{{ comentario.texto }}</p>
-    <p>Votos positivos: {{ comentario.votos_positivos }}, Votos negativos: {{ comentario.votos_negativos }}</p>
-    <a href="{% url 'votar_comentario' comentario.id 'positivo' %}">Me gusta</a>
-    <a href="{% url 'votar_comentario' comentario.id 'negativo' %}">No me gusta</a>
-{% endfor %}
+              <div class="d-flex flex-start mb-4">
+                <img class="rounded-circle shadow-1-strong me-3"
+                  src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="30"
+                  height="35"style="margin-top: 20px;"/>
+                <div class="card w-100">
+                  <div class="card-body p-4">
+                    <div class="">
+                      <h5>{{ comentario.autor }}</h5>
+                      <p class="small">{{ comentario.texto }}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <div class="d-flex align-items-center">
+                        <a href="{% url 'votar_comentario' comentario.id 'positivo' %}" class="link-muted me-2">
+                            <i class="fas fa-thumbs-up me-1"></i> {{ comentario.votos_positivos }}
+                        </a>
+                        <a href="{% url 'votar_comentario' comentario.id 'negativo' %}" class="link-muted">
+                            <i class="fas fa-thumbs-down me-1"></i> {{ comentario.votos_negativos }}
+                        </a>
 
-    <a class="btn btn-secondary mt-3" href="{% url 'agregar_comentario' %}">Agregar Comentario</a>
+
+                    
+                        </div>
+                        <a href="{% url 'editar_comentario' comentario.id %}" class="link-muted me-2">
+                          <i class="fas fa-edit me-1" style="margin-top: 20px;"></i>Editar
+                        </a>
+                        <a href="{% url 'borrar_comentario' comentario.id %}" class="link-muted">
+                          <i class="fas fa-trash me-1"></i>Borrar
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </li>
+          {% endfor %}
+        </ul>
+
+        <a class="btn btn-secondary mt-3" href="{% url 'agregar_comentario' %}">Agregar Comentario</a>
+
+      </div>
+    </div>
+  </div>
+</section>
 {% endblock %}
