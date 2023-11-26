@@ -28,6 +28,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STATIC_URL = '/static/'
+
 
 # Application definition
 
@@ -46,6 +48,7 @@ INSTALLED_APPS = [
     'rest_framework_swagger',
     'gateway',
     'comentarios',
+    'core',
 ]
 
 REST_FRAMEWORK = {
@@ -70,6 +73,8 @@ MODULES = [
     'store',
     'visualizer',
     'voting',
+    'core',
+    'comentarios',
 ]
 
 BASEURL = 'http://localhost:8000'
@@ -92,7 +97,7 @@ ROOT_URLCONF = 'decide.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

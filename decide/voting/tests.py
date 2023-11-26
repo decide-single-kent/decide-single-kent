@@ -22,12 +22,19 @@ from mixnet.mixcrypt import MixCrypt
 from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
 from datetime import datetime
+from django.utils.translation import activate
 
 
 class VotingTestCase(BaseTestCase):
 
+    def setUpLanguage(self):
+        activate('es')
+
     def setUp(self):
         super().setUp()
+        self.setUpLanguage()
+    
+
 
     def tearDown(self):
         super().tearDown()

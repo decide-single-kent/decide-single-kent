@@ -27,6 +27,7 @@ urlpatterns = [
     path('gateway/', include('gateway.urls')),
     path('comentarios/', include('comentarios.urls')),
     path('', include('base.urls')),
+    path('', include('core.urls')),
 
 ]
 
