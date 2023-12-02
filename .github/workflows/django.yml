@@ -22,7 +22,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres: ${{ matrix.postgres-version }}
+        image: postgres:${{matrix.postgres-version}}
         env:
           POSTGRES_USER: decide
           POSTGRES_PASSWORD: decide
@@ -58,7 +58,7 @@ jobs:
     - name: Codacy Coverage Reporter
       uses: codacy/codacy-coverage-reporter-action@v1
       with:
-          project-token: ${{ secrets.CODACY_PROJECT_TOKEN }}
+          project-token: ${{secrets.CODACY_PROJECT_TOKEN}}
           coverage-reports: decide/coverage.xml
 
   release:
