@@ -16,7 +16,9 @@
 <body>
   <header>
     <section class="base-header-primary">
+    <a href="{% url "core:index" %}">  
     <h1><strong>VotacionesM4</strong></h1>
+    </a>
     <nav>
       {% if request.user.is_authenticated %}
         <a class="btn btn-outline-success" onClick="window.location.href='/logout'" role="button">Cerrar Sesión</a>
@@ -27,6 +29,7 @@
     </nav>
     </section>
     <section class="base-header-secondary">
+      <h2>{% block description %}{% endblock description %}</h2>
       </section>
   </header>
   <main>

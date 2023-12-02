@@ -5,6 +5,9 @@ from django.contrib.auth import logout
 
 from .forms import SignUpForm 
 
+def home(request):
+  return render(request, 'core/index.html', {"usuario": request.user})
+
 def signup(request):
   if request.method == 'POST':
     form = SignUpForm(request.POST)

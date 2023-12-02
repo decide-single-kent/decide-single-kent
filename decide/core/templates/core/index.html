@@ -1,0 +1,26 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+
+{% block title %} Home {% endblock title %}
+
+{% block header %}
+  <link rel="stylesheet" href="{% static "css/index.css" %}">
+{% endblock header %}
+
+{% block description %}¿Quienes somos?{% endblock description %}
+
+
+{% block content %}
+  <article>
+    <div class="index-div-first-section-header">
+      <h3>Bienvenido {{ usuario }}</h3>
+    
+    </div>
+    <section class="index-section-description">
+      <p>
+        En <strong>VotacionesM4</strong>, nos dedicamos a la creación de votaciones para cualquier tipo de evento, ya sea para una empresa, una asociación, un grupo de amigos, etc.
+      </p>
+    </section>
+  </article>
+{% endblock content %}
