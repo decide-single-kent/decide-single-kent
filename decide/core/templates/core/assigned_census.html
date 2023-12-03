@@ -1,0 +1,47 @@
+{% extends "core/base.html" %}
+
+{% load static %}
+
+{% block title %} Assigned census {% endblock title %}
+
+{% block header %}
+  <link rel="stylesheet" href="{% static "css/index.css" %}">
+{% endblock header %}
+
+{% block description %}Tienes estos census asignados{% endblock description %}
+
+{% block content %}
+<h2 class="text-center">Lista de census</h2>
+<table class="table mx-auto">
+  <thead>
+    <tr>
+      <th>ID de la votación</th>
+      <th>Nombre de la votación</th>
+      <th>Fecha de inicio</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for vot in votings %}
+      <tr>
+        <td class="destino-clickable"><a href="{% url 'booth' voting_id=vot.id %}">{{ vot.id }}</a></td>
+        <td>{{ vot.name }}</td>
+        <td>{{ vot.start_date }}</td>
+      </tr>
+    {% endfor %}
+  </tbody>
+</table>
+</div>
+
+<style>
+.table {
+  width: 80%;
+  margin: auto;
+}
+
+.destino-clickable {
+  cursor: pointer;
+  text-decoration: underline;
+  color: blue;
+}
+</style>
+{% endblock content %}
