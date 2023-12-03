@@ -2,9 +2,11 @@
 {% load i18n static %}
 
 {% block extrahead %}
-    <link type="text/css" rel="stylesheet"
+    <link type="text/css" rel="stylesheet" 
          href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
+    <!-- Agregar Chart.js desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -15,7 +17,7 @@
                 <h1 class="navbar-brand">Decide</h1>
             </div>
         </nav>
-          
+
 
         <div class="voting container">
             <h1>[[ voting.id ]] - [[ voting.name ]]</h1>
@@ -25,6 +27,7 @@
             <div v-else>
                 <h2 class="heading">{% trans "Resultados:" %}</h2>
 
+                <!-- Tabla de Resultados -->
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
@@ -41,6 +44,9 @@
                         </tr>
                     </tbody>
                 </table>
+
+                <!-- Gráfico de Barras -->
+                <canvas id="resultChart" width="400" height="200"></canvas>
             </div>
 
         </div>
@@ -65,5 +71,33 @@
             }
         }).mount('#app-visualizer')
     </script>
-</body>
+    <script>
+        // Obtener datos de la votación desde Django
+        var resultsData = {{ voting_results|safe }};
+
+        // Crear un contexto para el gráfico
+        var ctx = document.getElementById('resultChart').getContext('2d');
+
+        // Crear un gráfico de barras
+        var resultChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: resultsData.labels,
+                datasets: [{
+                    label: 'Votos por Opción',
+                    data: resultsData.votes,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 {% endblock %}

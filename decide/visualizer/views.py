@@ -16,6 +16,11 @@ class VisualizerView(TemplateView):
         try:
             r = mods.get('voting', params={'id': vid})
             context['voting'] = json.dumps(r[0])
+            # Obtener resultados de la votación (reemplaza esto con tu lógica)
+            context['voting_results'] = {
+                'labels': [opt['option'] for opt in r[0]['question']['options']],
+                'votes': [opt['votes'] for opt in r[0]['postproc']],
+            }
         except:
             raise Http404
 
