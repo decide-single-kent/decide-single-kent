@@ -5,7 +5,6 @@ from django.contrib.auth import logout
 from census.models import Census
 from voting.models import Voting
 from django.utils import timezone
-from django.shortcuts import render, get_object_or_404
 
 from .forms import SignUpForm 
 
