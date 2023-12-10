@@ -3,8 +3,6 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
 from comentarios.models import Comentario
-from comentarios.views import *
-
 class ComentarioModelTest(TestCase):
 
     def setUp(self):
