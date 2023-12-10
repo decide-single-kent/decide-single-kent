@@ -2,9 +2,11 @@
 {% load i18n static %}
 
 {% block extrahead %}
-    <link type="text/css" rel="stylesheet"
+    <link type="text/css" rel="stylesheet" 
          href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
     <link type="text/css" rel="stylesheet" href="{% static "booth/style.css" %}" />
+    <!-- Agregar Chart.js desde CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 {% endblock %}
 
 {% block content %}
@@ -15,22 +17,30 @@
                 <h1 class="navbar-brand">Decide</h1>
             </div>
         </nav>
-          
+
 
         <div class="voting container">
             <h1>[[ voting.id ]] - [[ voting.name ]]</h1>
-
+            <h3>[[ voting.desc ]]</h2>
             <h2 v-if="!voting.start_date">{% trans "Votación no comenzada" %}</h2>
             <h2 v-else-if="!voting.end_date">{% trans "Votación en curso" %}</h2>
             <div v-else>
                 <h2 class="heading">{% trans "Resultados:" %}</h2>
+                <h4> La votación fue respondida por [[voting.tally.length]] personas. </h4>
+                <div>
+                    {% if max_votes_option %}
+                        <h4> La opción más votos fue: {{max_votes_option}} </h4>
+                    {% endif %}
+                </div>
 
+                <!-- Tabla de Resultados -->
                 <table class="table table-bordered table-striped">
                     <thead>
                         <tr>
                             <th>{% trans "Opción" %}</th>
                             <th>{% trans "Puntuación" %}</th>
                             <th>{% trans "Votos" %}</th>
+                            <th> Porcentaje </th>
                         </tr>
                     </thead>
                     <tbody>
@@ -38,9 +48,13 @@
                             <th>[[opt.option]]</th>
                             <td>[[opt.postproc]]</td>
                             <td class="text-muted">[[opt.votes]]</td>
+                            <th> [[ opt.postproc/voting.tally.length * 100]] % </th>
                         </tr>
                     </tbody>
                 </table>
+
+                <!-- Gráfico de Barras -->
+                <canvas id="resultChart" width="400" height="200"></canvas>
             </div>
 
         </div>
@@ -65,5 +79,33 @@
             }
         }).mount('#app-visualizer')
     </script>
-</body>
+    <script>
+        // Obtener datos de la votación desde Django
+        var resultsData = {{ voting_results|safe }};
+
+        // Crear un contexto para el gráfico
+        var ctx = document.getElementById('resultChart').getContext('2d');
+
+        // Crear un gráfico de barras
+        var resultChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: resultsData.labels,
+                datasets: [{
+                    label: 'Votos por Opción',
+                    data: resultsData.votes,
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
 {% endblock %}

@@ -16,6 +16,16 @@ class VisualizerView(TemplateView):
         try:
             r = mods.get('voting', params={'id': vid})
             context['voting'] = json.dumps(r[0])
+            # Obtener resultados de la votación (reemplaza esto con tu lógica)
+            context['voting_results'] = {
+                'labels': [opt['option'] for opt in r[0]['question']['options']],
+                'votes': [opt['votes'] for opt in r[0]['postproc']],
+            }
+
+            #Calcular la opción con más votos
+            if r[0]['postproc']:
+                max_option = max(r[0]['postproc'], key=lambda x: x['votes'])
+                context['max_votes_option'] = max_option['option']
         except:
             raise Http404
 
