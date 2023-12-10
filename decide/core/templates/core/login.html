@@ -1,5 +1,7 @@
 {% extends "core/base.html" %}
 
+
+
 {% load static %}
 
 {% block title %} Inicia Sesión {% endblock title %}
@@ -32,13 +34,20 @@
            </div>
 
         </div>
+       
 
         <div class="mb-4">
           <button class="btn btn-info btn-lg btn-block login-btn"  type="submit">Enviar</button>
         </div>
 
         <p>No tienes una cuenta todavía? <a href="{% url 'core:signup' %}" class="link-info">Regístrate aquí</a></p>
+         {% load socialaccount %}
+        {% providers_media_js %}
+
+ <a class="fab fa-google size social text-info custom-google-login" aria-hidden="true" href="{% provider_login_url 'google' %}">Iniciar sesión con Google</a>
+
       </form>
+    
     </div>
   </div>
 {% endblock content %}
