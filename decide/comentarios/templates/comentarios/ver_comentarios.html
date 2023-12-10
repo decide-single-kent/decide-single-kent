@@ -38,12 +38,16 @@
                         <a href="{% url 'borrar_comentario' comentario.id %}" class="link-muted">
                           <i class="fas fa-trash me-1"></i>Borrar
                         </a>
+                          <a href="{% url 'crear_reporte' comentario.id %}" class="link-muted">
+                          <i class="fas fa-flag me-1"></i>Reportar
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+
             </li>
+
           {% endfor %}
         </ul>
 
