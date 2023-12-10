@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 
 from django.shortcuts import render, redirect
@@ -5,9 +6,10 @@ from .models import Comentario
 from .forms import ComentarioForm
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.http import HttpResponseForbidden
 from django.http import HttpResponse
 from django.http import HttpResponse, JsonResponse
+from django.contrib import messages
+from .bad_words import contiene_palabra_inapropiada
 
 def ver_comentarios(request):
     comentarios = Comentario.objects.all()
@@ -17,12 +19,16 @@ def agregar_comentario(request):
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
         if form.is_valid():
+            nuevo_comentario = form.cleaned_data['texto']
+
+            if contiene_palabra_inapropiada(nuevo_comentario):
+                messages.warning(request, 'Tu comentario contiene palabras inapropiadas y puede ser eliminado. ¡Por favor, sé respetuoso!')
+
             form.save()
             return redirect('ver_comentarios')
     else:
         form = ComentarioForm()
     return render(request, 'comentarios/agregar_comentario.html', {'form': form})
-
 def editar_comentario(request, comentario_id):
     comentario = get_object_or_404(Comentario, pk=comentario_id)
     tiempo_transcurrido = timezone.now() - comentario.timestamp
@@ -32,6 +38,11 @@ def editar_comentario(request, comentario_id):
     if request.method == 'POST':
         form = ComentarioForm(request.POST, instance=comentario)
         if form.is_valid():
+            nuevo_comentario = form.cleaned_data['texto']
+
+            if contiene_palabra_inapropiada(nuevo_comentario):
+                messages.warning(request, 'Tu comentario contiene palabras inapropiadas y puede ser eliminado. ¡Por favor, sé respetuoso!')
+
             form.save()
             return redirect('ver_comentarios')
     else:
