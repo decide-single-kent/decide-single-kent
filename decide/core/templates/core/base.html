@@ -22,6 +22,7 @@
     <nav>
       {% if request.user.is_authenticated %}
         <a class="btn btn-outline-success" onClick="window.location.href='/logout'" role="button">Cerrar Sesión</a>
+        <a class="btn btn-outline-success" onClick="window.location.href='/assigned_census'" role="button">Votaciones Asignadas</a>
       {% else %}
         <a class="btn btn-outline-success" href="{% url "core:signup" %}" role="button">Registro</a>
         <a class="btn btn-outline-success" href="{% url "core:login" %}" role="button">Iniciar Sesion</a>
