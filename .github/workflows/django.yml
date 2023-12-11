@@ -6,6 +6,7 @@ on:
       - develop
       - master
       - epic
+      - 4-Painted_graphs
   release:
     types:
       - created
