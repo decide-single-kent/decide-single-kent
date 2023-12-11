@@ -6,6 +6,7 @@ on:
       - develop
       - master
       - epic
+      - feature/3-authentication_with_google
   release:
     types:
       - created
