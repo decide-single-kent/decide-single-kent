@@ -4,9 +4,6 @@ from django.http import Http404
 from unittest.mock import patch
 from django.utils.translation import activate
 
-
-from .views import VisualizerView
-
 class VisualizerViewTest(TestCase):
 
     def setUpLenguage(self):
@@ -57,4 +54,3 @@ class VisualizerViewTest(TestCase):
 
             # Verifica que la vista devuelve un error 404
             self.assertEqual(response.status_code, 404)
-

@@ -1,10 +1,8 @@
 import json
 from django.views.generic import TemplateView
-from django.conf import settings
 from django.http import Http404
 
 from base import mods
-
 
 class VisualizerView(TemplateView):
     template_name = 'visualizer/visualizer.html'
@@ -15,18 +13,25 @@ class VisualizerView(TemplateView):
 
         try:
             r = mods.get('voting', params={'id': vid})
+
+            if not r or not r[0]:
+                raise Http404("Voting not found or invalid data structure")
+
             context['voting'] = json.dumps(r[0])
-            # Obtener resultados de la votación (reemplaza esto con tu lógica)
+
             context['voting_results'] = {
                 'labels': [opt['option'] for opt in r[0]['question']['options']],
                 'votes': [opt['votes'] for opt in r[0]['postproc']],
             }
 
-            #Calcular la opción con más votos
             if r[0]['postproc']:
                 max_option = max(r[0]['postproc'], key=lambda x: x['votes'])
                 context['max_votes_option'] = max_option['option']
-        except:
-            raise Http404
+
+        except Http404:
+            raise  
+        except Exception as e:
+            print(f"Error in VisualizerView: {str(e)}")
+            raise Http404("Error retrieving voting data")
 
         return context
