@@ -11,9 +11,19 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static "css/base.css" %}">
+
   {% block header %}{% endblock header %}
 </head>
 <body>
+ <style>
+    body {
+      background-color: #f4f4f4; /* Color de fondo suave */
+      font-family: 'Lato', sans-serif; /* Fuente personalizada */
+      margin: 0;
+      padding: 0;
+    }
+    /* Resto de tu CSS ... */
+  </style>
   <header>
     <section class="base-header-primary">
     <a href="{% url "core:index" %}">  
@@ -23,6 +33,9 @@
       {% if request.user.is_authenticated %}
         <a class="btn btn-outline-success" onClick="window.location.href='/logout'" role="button">Cerrar Sesión</a>
         <a class="btn btn-outline-success" onClick="window.location.href='/assigned_census'" role="button">Votaciones Asignadas</a>
+        <a class="btn btn-outline-success" onClick="window.location.href='/ver-comentarios'" role="button">Comentarios</a>
+
+
       {% else %}
         <a class="btn btn-outline-success" href="{% url "core:signup" %}" role="button">Registro</a>
         <a class="btn btn-outline-success" href="{% url "core:login" %}" role="button">Iniciar Sesion</a>

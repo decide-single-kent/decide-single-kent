@@ -8,11 +8,16 @@ from django.utils import timezone
 from django.http import HttpResponseForbidden
 from django.http import HttpResponse
 from django.http import HttpResponse, JsonResponse
+from django.contrib.auth.decorators import login_required
 
+
+@login_required(login_url='/no_autenticado')
 def ver_comentarios(request):
     comentarios = Comentario.objects.all()
     return render(request, 'comentarios/ver_comentarios.html', {'comentarios': comentarios})
 
+
+@login_required(login_url='/no_autenticado')
 def agregar_comentario(request):
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
@@ -23,6 +28,7 @@ def agregar_comentario(request):
         form = ComentarioForm()
     return render(request, 'comentarios/agregar_comentario.html', {'form': form})
 
+@login_required(login_url='/no_autenticado')
 def editar_comentario(request, comentario_id):
     comentario = get_object_or_404(Comentario, pk=comentario_id)
     tiempo_transcurrido = timezone.now() - comentario.timestamp
@@ -38,6 +44,7 @@ def editar_comentario(request, comentario_id):
         form = ComentarioForm(instance=comentario)
     return render(request, 'comentarios/editar_comentario.html', {'form': form, 'comentario': comentario})
 
+@login_required(login_url='/no_autenticado')
 def borrar_comentario(request, comentario_id):
     comentario = get_object_or_404(Comentario, pk=comentario_id)
     tiempo_transcurrido = timezone.now() - comentario.timestamp
@@ -46,6 +53,8 @@ def borrar_comentario(request, comentario_id):
     
     comentario.delete()
     return redirect('ver_comentarios')
+
+@login_required(login_url='/no_autenticado')
 def votar_comentario(request, comentario_id, voto):
     try:
         comentario = Comentario.objects.get(pk=comentario_id)
@@ -92,3 +101,6 @@ def votar_comentario(request, comentario_id, voto):
         return JsonResponse({'success': False, 'error': 'Comentario no encontrado'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+    
+def no_autenticado_view(request):
+        return render(request, 'comentarios/no_autenticado.html')

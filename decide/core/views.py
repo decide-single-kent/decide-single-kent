@@ -5,6 +5,7 @@ from django.contrib.auth import logout
 from census.models import Census
 from voting.models import Voting
 from django.utils import timezone
+from django.contrib.auth.decorators import login_required
 
 from .forms import SignUpForm 
 
@@ -28,6 +29,8 @@ def logout_view(request):
   logout(request)
   return redirect('/')
 
+
+@login_required(login_url='/no_autenticado')
 def assigned_census(request):
     current_datetime = timezone.now()
 
