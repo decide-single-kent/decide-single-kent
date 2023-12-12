@@ -116,7 +116,7 @@ def votar_comentario(request, comentario_id, voto):
         return JsonResponse({'success': False, 'error': str(e)})
     
 def no_autenticado_view(request):
-        return render(request, 'comentarios/no_autenticado.html')
+    return render(request, 'comentarios/no_autenticado.html')
 def crear_reporte(request, comentario_id):
     if request.method == 'POST':
         usuario = request.user
