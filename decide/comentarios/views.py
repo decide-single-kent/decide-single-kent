@@ -10,6 +10,7 @@ from django.http import HttpResponse
 from django.http import HttpResponse, JsonResponse
 from django.contrib import messages
 from .bad_words import contiene_palabra_inapropiada
+from .models import Reporte
 
 def ver_comentarios(request):
     comentarios = Comentario.objects.all()
@@ -103,3 +104,16 @@ def votar_comentario(request, comentario_id, voto):
         return JsonResponse({'success': False, 'error': 'Comentario no encontrado'})
     except Exception as e:
         return JsonResponse({'success': False, 'error': str(e)})
+    
+def crear_reporte(request, comentario_id):
+    if request.method == 'POST':
+        usuario = request.user
+        comentario = Comentario.objects.get(id=comentario_id)
+        razon = request.POST['razon']
+
+        Reporte.objects.create(usuario=usuario, comentario=comentario, razon=razon)
+
+        messages.success(request, '¡Reporte enviado con éxito!')
+        return redirect('ver_comentarios')
+
+    return render(request, 'comentarios/crear_reporte.html')
