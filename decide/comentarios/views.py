@@ -25,6 +25,7 @@ def agregar_comentario(request):
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
         if form.is_valid():
+            form.instance.autor = request.user
             nuevo_comentario = form.cleaned_data['texto']
 
             if contiene_palabra_inapropiada(nuevo_comentario):
