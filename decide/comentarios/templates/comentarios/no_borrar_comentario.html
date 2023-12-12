@@ -1,6 +1,19 @@
 {% extends 'base.html' %}
-
 {% block content %}
-    <h2>No puedes borrar este comentario.</h2>
+<style>
+    .content-container {
+        text-align: center;
+        padding: 20px;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #f8f9fa; /* Color de fondo suave */
+        margin: 50px auto; /* Centrado vertical y horizontal */
+        max-width: 400px; /* Ancho máximo para evitar que se extienda demasiado */
+    }
+</style>
+
+<div class="content-container">
+    <h2>No puedes borrar este comentario</h2>
     <a href="{% url 'ver_comentarios' %}" class="btn btn-secondary">Volver a Comentarios</a>
+</div>
 {% endblock %}
