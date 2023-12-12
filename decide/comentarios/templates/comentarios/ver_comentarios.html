@@ -64,19 +64,22 @@
 </section>
 
 <script>
-    document.addEventListener("DOMContentLoaded", function () {
-        // Obtener todos los elementos con la clase 'votar-btn'
-        var votarButtons = document.querySelectorAll('.votar-btn');
 
-        // Agregar un evento de clic a cada botón
-        votarButtons.forEach(function (button) {
-            button.addEventListener('click', function () {
-                // Obtener el comentario_id y el voto del atributo data
-                var comentarioId = button.getAttribute('data-comentario-id');
-                var voto = button.getAttribute('data-voto');
+document.addEventListener("DOMContentLoaded", function () {
+    // Obtener todos los elementos con la clase 'votar-btn'
+    var votarButtons = document.querySelectorAll('.votar-btn');
 
+    // Agregar un evento de clic a cada botón
+    votarButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            // Obtener el comentario_id y el voto del atributo data
+            var comentarioId = button.getAttribute('data-comentario-id');
+            var voto = button.getAttribute('data-voto');
+
+            // Verificar si comentarioId está presente y es un número válido
+            if (comentarioId && !isNaN(comentarioId)) {
                 // Realizar la petición AJAX para votar
-                fetch(`/comentarios/votar_comentario/${comentarioId}/${voto}/`)
+                fetch(`/votar_comentario/${comentarioId}/${voto}/`)
                     .then(response => response.json())
                     .then(data => {
                         // Actualizar los contadores de votos en la página
@@ -84,10 +87,15 @@
                         document.getElementById(`votos-negativos-${comentarioId}`).innerText = data.votos_negativos;
                     })
                     .catch(error => console.error('Error al votar:', error));
-            });
+            } else {
+                console.error('Error: comentarioId no es válido');
+            }
         });
     });
+});
+
 </script>
+
 
 {% endblock %}
 
