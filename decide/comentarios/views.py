@@ -1,3 +1,4 @@
+
 from django.shortcuts import render
 
 from django.shortcuts import render, redirect
@@ -5,10 +6,12 @@ from .models import Comentario
 from .forms import ComentarioForm
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.http import HttpResponseForbidden
 from django.http import HttpResponse
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from .bad_words import contiene_palabra_inapropiada
+from .models import Reporte
 
 
 @login_required(login_url='/no_autenticado')
@@ -22,6 +25,11 @@ def agregar_comentario(request):
     if request.method == 'POST':
         form = ComentarioForm(request.POST)
         if form.is_valid():
+            nuevo_comentario = form.cleaned_data['texto']
+
+            if contiene_palabra_inapropiada(nuevo_comentario):
+                messages.warning(request, 'Tu comentario contiene palabras inapropiadas y puede ser eliminado. ¡Por favor, sé respetuoso!')
+
             form.save()
             return redirect('ver_comentarios')
     else:
@@ -38,6 +46,11 @@ def editar_comentario(request, comentario_id):
     if request.method == 'POST':
         form = ComentarioForm(request.POST, instance=comentario)
         if form.is_valid():
+            nuevo_comentario = form.cleaned_data['texto']
+
+            if contiene_palabra_inapropiada(nuevo_comentario):
+                messages.warning(request, 'Tu comentario contiene palabras inapropiadas y puede ser eliminado. ¡Por favor, sé respetuoso!')
+
             form.save()
             return redirect('ver_comentarios')
     else:
@@ -104,3 +117,15 @@ def votar_comentario(request, comentario_id, voto):
     
 def no_autenticado_view(request):
         return render(request, 'comentarios/no_autenticado.html')
+def crear_reporte(request, comentario_id):
+    if request.method == 'POST':
+        usuario = request.user
+        comentario = Comentario.objects.get(id=comentario_id)
+        razon = request.POST['razon']
+
+        Reporte.objects.create(usuario=usuario, comentario=comentario, razon=razon)
+
+        messages.success(request, '¡Reporte enviado con éxito!')
+        return redirect('ver_comentarios')
+
+    return render(request, 'comentarios/crear_reporte.html')
