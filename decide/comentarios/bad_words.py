@@ -3,6 +3,7 @@ bad_words_list = [
     'tonto',
     'mierda',
     'cabron',
+    'puta',
 
 ]
 
