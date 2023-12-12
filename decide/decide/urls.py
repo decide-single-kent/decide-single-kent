@@ -10,7 +10,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('doc/', schema_view),
     path('gateway/', include('gateway.urls')),
-    path('comentarios/', include('comentarios.urls')),
+    path('', include('comentarios.urls')),
     path('', include('base.urls')),
     path('', include('core.urls')),
     path('accounts/' , include('allauth.urls')),
