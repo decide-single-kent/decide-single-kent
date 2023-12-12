@@ -30,16 +30,31 @@
     <h1><strong>VotacionesM4</strong></h1>
     </a>
     <nav>
-      {% if request.user.is_authenticated %}
-        <a class="btn btn-outline-success" onClick="window.location.href='/logout'" role="button">Cerrar Sesión</a>
-        <a class="btn btn-outline-success" onClick="window.location.href='/assigned_census'" role="button">Votaciones Asignadas</a>
-        <a class="btn btn-outline-success" onClick="window.location.href='/ver-comentarios'" role="button">Comentarios</a>
+              {% if request.user.is_authenticated %}
+            <a class="btn btn-outline-success" onClick="window.location.href='/logout'"
+               role="button">Cerrar Sesión</a>
+            <a class="btn btn-outline-success" onClick="window.location.href='/assigned_census'"
+               role="button">Votaciones Asignadas</a>
+            <a class="btn btn-outline-success"  onClick="window.location.href='/ver-comentarios'" role="button">Comentarios</a>
 
+            <a class="btn btn-outline-success" onClick="redirectToHome()" role="button">Home</a>
 
-      {% else %}
-        <a class="btn btn-outline-success" href="{% url "core:signup" %}" role="button">Registro</a>
-        <a class="btn btn-outline-success" href="{% url "core:login" %}" role="button">Iniciar Sesion</a>
-      {% endif %}
+            <script>
+                function redirectToHome() {
+                    window.location.href = 'http://localhost:8080/';
+                }
+            </script>
+
+            {% else %}
+            <a class="btn btn-outline-success" href="{% url "core:signup" %}" role="button">Registro</a>
+            <a class="btn btn-outline-success" href="{% url "core:login" %}" role="button">Iniciar Sesion</a>
+
+            <script>
+                function redirectToHome() {
+                    window.location.href = 'http://localhost:8080/';
+                }
+            </script>
+            {% endif %}
     </nav>
     </section>
     <section class="base-header-secondary">
@@ -114,3 +129,4 @@
   </footer>
 </body>
 </html>
+
