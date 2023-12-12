@@ -3,14 +3,13 @@
 {% block content %}
   <div class="container my-5 py-5">
     <h2 class="mb-4">Crear Reporte</h2>
-    <form method="post" action="">
+    <form method="post" action="" class="mb-4">
       {% csrf_token %}
       <div class="mb-3">
         <label for="razon" class="form-label">Razón del reporte:</label>
         <textarea name="razon" class="form-control" required></textarea>
-              <button type="submit" class="btn btn-primary">Enviar Reporte</button>
-
       </div>
+      <button type="submit" class="btn btn-primary">Enviar Reporte</button>
     </form>
   </div>
 {% endblock %}
