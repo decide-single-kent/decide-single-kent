@@ -41,7 +41,7 @@
 
             <script>
                 function redirectToHome() {
-                    window.location.href = 'http://localhost:8080/';
+                    window.location.href = '{% url "core:index" %}';
                 }
             </script>
 
@@ -49,11 +49,6 @@
             <a class="btn btn-outline-success" href="{% url "core:signup" %}" role="button">Registro</a>
             <a class="btn btn-outline-success" href="{% url "core:login" %}" role="button">Iniciar Sesion</a>
 
-            <script>
-                function redirectToHome() {
-                    window.location.href = 'http://localhost:8080/';
-                }
-            </script>
             {% endif %}
     </nav>
     </section>

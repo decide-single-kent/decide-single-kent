@@ -1,4 +1,3 @@
-{% extends "base.html" %}
 {% load i18n static %}
 
 {% block extrahead %}
@@ -13,9 +12,33 @@
     <div id="app-visualizer">
         <!-- Navbar -->
         <nav class="navbar navbar-dark bg-dark">
-            <div class="container-fluid">
-                <h1 class="navbar-brand">Decide</h1>
-            </div>
+            <section class="base-header-primary">
+                <a href="{% url "core:index" %}">  
+                <h1><strong>VotacionesM4</strong></h1>
+                </a>
+                <nav>
+                          {% if request.user.is_authenticated %}
+                        <a class="btn btn-outline-success" onClick="window.location.href='/logout'"
+                           role="button">Cerrar Sesión</a>
+                        <a class="btn btn-outline-success" onClick="window.location.href='/assigned_census'"
+                           role="button">Votaciones Asignadas</a>
+                        <a class="btn btn-outline-success"  onClick="window.location.href='/ver-comentarios'" role="button">Comentarios</a>
+            
+                        <a class="btn btn-outline-success" onClick="redirectToHome()" role="button">Home</a>
+            
+                        <script>
+                            function redirectToHome() {
+                                window.location.href = '{% url "core:index" %}';
+                            }
+                        </script>
+            
+                        {% else %}
+                        <a class="btn btn-outline-success" href="{% url "core:signup" %}" role="button">Registro</a>
+                        <a class="btn btn-outline-success" href="{% url "core:login" %}" role="button">Iniciar Sesion</a>
+            
+                        {% endif %}
+                </nav>
+                </section>
         </nav>
 
 
