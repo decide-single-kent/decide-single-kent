@@ -12,12 +12,14 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from .bad_words import contiene_palabra_inapropiada
 from .models import Reporte
+from voting.models import Voting
 
 
 @login_required(login_url='/no_autenticado')
 def ver_comentarios(request):
     comentarios = Comentario.objects.all()
-    return render(request, 'comentarios/ver_comentarios.html', {'comentarios': comentarios})
+    votaciones = Voting.objects.filter(end_date__isnull=False)
+    return render(request, 'comentarios/ver_comentarios.html', {'comentarios': comentarios,'votings': votaciones})
 
 
 @login_required(login_url='/no_autenticado')

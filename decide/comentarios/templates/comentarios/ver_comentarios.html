@@ -4,7 +4,27 @@
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
+<table class="table mx-auto">
+    <thead>
+      <tr>
+        <th>ID de la votación</th>
+        <th>Nombre de la votación</th>
+        <th>Fecha de inicio</th>
+        <th>Fecha de fin</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vot in votings %}
+        <tr>
+          <td class="destino-clickable"><a href="{% url 'visualizer' voting_id=vot.id %}">{{ vot.id }}</a></td>
+          <td>{{ vot.name }}</td>
+          <td>{{ vot.start_date }}</td>
+          <td>{{ vot.end_date }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
 <section >
 
     <div class="container my-5 py-5">
