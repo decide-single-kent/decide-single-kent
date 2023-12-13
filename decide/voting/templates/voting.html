@@ -67,6 +67,9 @@
       <div class="form-group">
         {{ form.auths.label_tag }}
         {{ form.auths }}
+        <button id="btnAddQuestion" class="btn btn-primary ml-2" type="button" style="padding: 5px; box-sizing: content-box;" onclick="openNewPage2()" >
+          +
+        </button>
       </div>
       <button class="btn btn-success w-100" type="submit">Crear Votación</button>
     </form>
@@ -74,7 +77,16 @@
 </div>
 <script>
   function openNewPage() {
-    window.open("{% url 'new_question' %}", "New Question", "width=600,height=400");
+    var newWindow = window.open("{% url 'new_question' %}", "New Question", "width=600,height=400");
+
+    // Agregar un listener para detectar el cierre de la ventana secundaria
+    newWindow.addEventListener('beforeunload', function() {
+      // Recargar la ventana principal al cerrar la ventana secundaria
+      location.reload();
+    });
+  }
+  function openNewPage2() {
+    window.open("{% url 'new_auth' %}", "New Auth", "width=600,height=400");
   }
 </script>
 {% endblock %}

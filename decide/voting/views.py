@@ -1,4 +1,5 @@
-from .forms import QuestionForm, QuestionOptionFormSet, VotingForm
+from django.urls import reverse
+from .forms import AuthForm, QuestionForm, QuestionOptionFormSet, VotingForm
 import django_filters.rest_framework
 from django.conf import settings
 from django.utils import timezone
@@ -129,16 +130,32 @@ def voting(request):
 def question(request):
     if request.method == 'POST':
         form = QuestionForm(request.POST)
-        formset = QuestionOptionFormSet(request.POST)
+        formset = QuestionOptionFormSet(request.POST, instance=Question())
+
         if form.is_valid() and formset.is_valid():
             question_instance = form.save()
             formset.instance = question_instance
             formset.save()
 
-            return render(request, 'close_window.html')
-
+            return redirect('close_windows/')  # o cualquier otra redirección que desees
     else:
         form = QuestionForm()
-        formset = QuestionOptionFormSet()
+        formset = QuestionOptionFormSet(instance=Question())
 
     return render(request, 'new_question.html', {'form': form, 'formset': formset})
+
+def close(request):
+    return render(request, 'close_windows.html')
+
+@login_required(login_url='/no_autenticado')
+def auth(request):
+    if request.method == 'POST':
+        form = AuthForm(request.POST)
+        if form.is_valid():
+            form.save()
+
+            return redirect(reverse('close_windows'))
+    else:
+        form = AuthForm()
+
+    return render(request, 'new_auth.html', {'form': form})
