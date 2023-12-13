@@ -1,14 +1,19 @@
 {% extends 'base.html' %}
+{% block description %}La Lista de Comentarios{% endblock description %}
 
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
 <section >
+
     <div class="container my-5 py-5">
+    
         <div class="row justify-content-center" >
 
             <div class="col-md-11 col-lg-9 col-xl-7">
+                <a class="btn btn-secondary mt-3" href="{% url 'agregar_comentario' %}" style="margin-left:220px; margin-bottom:20px">Agregar Comentario</a>
+
 
                 <ul class="list-group">
                     {% for comentario in comentarios %}
@@ -54,10 +59,7 @@
                             </div>
                         </li>
                     {% endfor %}
-                </ul>
-
-                <a class="btn btn-secondary mt-3" href="{% url 'agregar_comentario' %}">Agregar Comentario</a>
-
+                </ul> 
             </div>
         </div>
     </div>
