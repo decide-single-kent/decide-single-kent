@@ -34,6 +34,7 @@
            </div>
 
         </div>
+
        
 
         <div class="mb-4">
@@ -41,9 +42,10 @@
         </div>
 
         <p>No tienes una cuenta todavía? <a href="{% url 'core:signup' %}" class="link-info">Regístrate aquí</a></p>
-         {% load socialaccount %}
+        {% load socialaccount %}
         {% providers_media_js %}
 
+        <a class="fab fa-google size social text-info custom-google-login" aria-hidden="true" href="{% provider_login_url 'google' %}">Iniciar sesión con Google</a>
 
       </form>
     
