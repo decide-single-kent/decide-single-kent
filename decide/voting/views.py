@@ -1,9 +1,12 @@
+from .forms import QuestionForm, QuestionOptionFormSet, VotingForm
 import django_filters.rest_framework
 from django.conf import settings
 from django.utils import timezone
-from django.shortcuts import get_object_or_404
+from django.shortcuts import get_object_or_404, redirect, render
 from rest_framework import generics, status
 from rest_framework.response import Response
+
+from django.contrib.auth.decorators import login_required
 
 from .models import Question, QuestionOption, Voting
 from .serializers import SimpleVotingSerializer, VotingSerializer
@@ -101,3 +104,41 @@ class VotingUpdate(generics.RetrieveUpdateDestroyAPIView):
             msg = _('Action not found, try with start, stop or tally')
             st = status.HTTP_400_BAD_REQUEST
         return Response(msg, status=st)
+
+
+@login_required(login_url='/no_autenticado')
+def voting(request):
+    if request.method == 'POST':
+        form = VotingForm(request.POST)
+        if form.is_valid():
+            # Guarda la votación en la base de datos
+            voting_instance = form.save(commit=False)
+            # Realiza cualquier manipulación adicional antes de guardar
+            # (por ejemplo, establecer fechas, generar claves, etc.)
+            voting_instance.save()
+
+            # Redirige a la página de detalles de la votación o a donde desees
+            return redirect('/', pk=voting_instance.pk)
+    else:
+        form = VotingForm()
+
+    return render(request, 'voting.html', {'form': form})
+
+
+@login_required(login_url='/no_autenticado')
+def question(request):
+    if request.method == 'POST':
+        form = QuestionForm(request.POST)
+        formset = QuestionOptionFormSet(request.POST)
+        if form.is_valid() and formset.is_valid():
+            question_instance = form.save()
+            formset.instance = question_instance
+            formset.save()
+
+            return render(request, 'close_window.html')
+
+    else:
+        form = QuestionForm()
+        formset = QuestionOptionFormSet()
+
+    return render(request, 'new_question.html', {'form': form, 'formset': formset})

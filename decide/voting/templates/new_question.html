@@ -1,0 +1,62 @@
+{# new_question.html #}
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">Nueva Pregunta</h2>
+                    <form method="post" action="{% url 'new_question' %}" class="mt-3" id="question-form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        <div id="options">
+                            {% for form in formset %}
+                                {{ form.as_table }}
+                            {% endfor %}
+                        </div>
+                        <button type="button" class="btn btn-primary mt-3" id="add-option">Agregar Opción</button>
+                        <button type="submit" class="btn btn-primary w-100 mt-3">Crear Pregunta</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var formset = document.getElementById('options');
+    var formIdx = formset.childElementCount;
+
+    document.getElementById('add-option').addEventListener('click', function() {
+        // Crear un nuevo conjunto de campos para otra opción
+        var newOption = formset.firstElementChild.cloneNode(true);
+
+        // Limpiar valores de los campos clonados
+        newOption.querySelectorAll('input[type="text"]').forEach(function(input) {
+            input.value = '';
+        });
+
+        // Actualizar los nombres de los campos para que sean únicos
+        newOption.querySelectorAll('[id$="-' + (formIdx - 1) + '-"]').forEach(function(element) {
+            element.id = element.id.replace('-' + (formIdx - 1) + '-', '-' + formIdx + '-');
+        });
+
+        newOption.querySelectorAll('[name$="-' + (formIdx - 1) + '-"]').forEach(function(element) {
+            element.name = element.name.replace('-' + (formIdx - 1) + '-', '-' + formIdx + '-');
+        });
+
+        // Agregar el nuevo conjunto de campos al formset
+        formset.appendChild(newOption);
+
+        // Actualizar la cantidad total de formularios
+        document.getElementById('id_questionoption_set-TOTAL_FORMS').value = formIdx + 1;
+
+        // Incrementar el índice para el próximo conjunto de campos
+        formIdx++;
+    });
+});
+</script>
+{% endblock %}
