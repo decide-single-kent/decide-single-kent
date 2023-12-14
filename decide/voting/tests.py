@@ -1,5 +1,6 @@
 import random
 import itertools
+from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -23,6 +24,56 @@ from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
 from datetime import datetime
 from django.utils.translation import activate
+
+
+class VotingCreationTests(TestCase):
+
+    def setUp(self):
+        # Crear un usuario para la autenticación
+        self.usuario = User.objects.create_user(username='admin', password='contraseña123')
+        self.question = Question.objects.create(desc='¿Cuál es tu color favorito?')
+        self.auth = Auth.objects.create(name='Auth Test', url='https://auth.example.com', me=False)
+
+    def test_creacion_question_con_opciones(self):
+        # Crear una pregunta con opciones
+        self.question = Question.objects.create(desc='¿Cuál es tu color favorito?')
+
+        # Crear dos instancias de QuestionOption para representar dos opciones
+        option1 = QuestionOption(question=self.question, option='Rojo')
+        option1.save()
+
+        option2 = QuestionOption(question=self.question, option='Azul')
+        option2.save()
+
+        # Verificar que la pregunta se haya creado correctamente
+        self.assertEqual(self.question.desc, '¿Cuál es tu color favorito?')
+
+        # Verificar que las opciones se hayan creado correctamente
+        self.assertEqual(option1.option, 'Rojo')
+        self.assertEqual(option2.option, 'Azul')
+
+    def test_creacion_auth_valida(self):
+        # Crear un Auth válido
+        self.auth = Auth.objects.create(name='Auth Test', url='https://auth.example.com', me=False)
+
+        # Verificar que el Auth se haya creado correctamente
+        self.assertEqual(self.auth.name, 'Auth Test')
+        self.assertEqual(self.auth.url, 'https://auth.example.com')
+        self.assertFalse(self.auth.me)
+
+    def test_creacion_voting_valida(self):
+        # Crear una votación válida
+        voting = Voting.objects.create(
+            name='Voting Test',
+            desc='Descripción de la votación',
+            question=self.question,
+        )
+
+        voting.auths.set([self.auth])
+
+        # Verificar que la votación se haya creado correctamente
+        self.assertEqual(voting.name, 'Voting Test')
+        self.assertTrue(Voting.objects.filter(name='Voting Test').exists())
 
 
 class VotingTestCase(BaseTestCase):
