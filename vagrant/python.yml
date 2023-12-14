@@ -3,7 +3,7 @@
   become: yes
   become_user: decide
   git:
-    repo: 'https://github.com/decide-update-4-1/decide-update-4.1.git'
+    repo: 'https://github.com/decide-single-kent/decide-single-kent.git'
     dest: /home/decide/decide
     version: epic
 
