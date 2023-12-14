@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
+import environ
 from django.utils.translation import gettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -21,6 +22,17 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^##ydkswfu0+=ofw0l#$kv^8n)0$i(qd&d&ol#p9!b$8*5%j1+'
+
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+# Lee las variables de entorno desde un archivo .env
+environ.Env.read_env()
+
+# Obtén la contraseña desde el archivo .env
+PASSWORD = env('PASSWORD')
+EMAIL = env('EMAIL')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
