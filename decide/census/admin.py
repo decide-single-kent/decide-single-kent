@@ -12,17 +12,13 @@ class CensusAdmin(admin.ModelAdmin):
     search_fields = ('voter_id', )
 
     def save_model(self, request, obj, form, change):
-        # Call the save_model method of the base class to perform the standard saving
         super().save_model(request, obj, form, change)
-        usuario = User.objects.get(id=obj.voter_id).username
         email_envio = User.objects.get(id=obj.voter_id).email
-        # Add your logic here, for example, sending an email after saving the object
         correo = "ronmonalb@gmail.com"
         password = "zndnmdhugwcrwatt"
         #email_envio = "ronaldmontoya2002@gmail.com"
 
         em = EmailMessage()
-        
         em['Subject'] = 'Asignación de censo'
         em['From'] = correo
         em['To'] = [email_envio]
