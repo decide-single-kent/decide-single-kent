@@ -22,14 +22,23 @@ class CensusAdmin(admin.ModelAdmin):
         #email_envio = "ronaldmontoya2002@gmail.com"
 
         em = EmailMessage()
+        
         em['Subject'] = 'Asignación de censo'
         em['From'] = correo
         em['To'] = [email_envio]
 
         # Ensure that the census is a string
         voting = Voting.objects.get(id=obj.voting_id).name
-        em.set_content('Se le ha asignado el censo para votar en la plataforma VotacionesM4 , La votación se llama: ' + str(voting) + ' y su usuario es: ' + str(usuario))
+        desc_voting = Voting.objects.get(id=obj.voting_id).desc
+        fecha_inicio = Voting.objects.get(id=obj.voting_id).start_date.date()
+        text_content = (
+            "Se le ha asignado una nueva votación en la plataforma VotacionesM4.\n\n" +
+            "Nombre: "+ str(voting) + "\n" +
+            "Descripción: " + str(desc_voting) + "\n" +
+            "Fecha de inicio: " + str(fecha_inicio) + "\n"
+        )
 
+        em.set_content(text_content)
         context = ssl.create_default_context()
         with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=context) as server:
             server.login(correo, password)
