@@ -17,9 +17,11 @@ class QuestionForm(forms.ModelForm):
         model = Question
         fields = ['desc']
 
+
 QuestionOptionFormSet = forms.inlineformset_factory(Question, QuestionOption, fields=['number', 'option'], can_delete=False)
+
 
 class AuthForm(forms.ModelForm):
     class Meta:
-        model = Auth 
+        model = Auth
         fields = ['name', 'url', 'me']
