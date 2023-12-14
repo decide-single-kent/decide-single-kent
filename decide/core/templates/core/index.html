@@ -22,5 +22,8 @@
         En <strong>VotacionesM4</strong>, nos dedicamos a la creación de votaciones para cualquier tipo de evento, ya sea para una empresa, una asociación, un grupo de amigos, etc.
       </p>
     </section>
+    {% if request.user.is_authenticated %}
+    <a class="btn btn-outline-success" onClick="window.location.href='/voting/voting'" role="button">Crear Votación</a>
+    {% endif %}
   </article>
 {% endblock content %}
