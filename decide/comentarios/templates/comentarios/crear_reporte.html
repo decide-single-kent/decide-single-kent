@@ -1,17 +1,19 @@
 {% extends 'base.html' %}
+{% load i18n %}
+
 {% block description %}Trabajaremos por un ambiente sano y educado{% endblock description %}
 
 
 {% block content %}
   <div class="container my-5 py-5">
-    <h2 class="mb-4">Crear Reporte</h2>
+    <h2 class="mb-4">{% trans "Crear Reporte" %}</h2>
     <form method="post" action="" class="mb-4">
       {% csrf_token %}
       <div class="mb-3">
-        <label for="razon" class="form-label">Razón del reporte:</label>
+        <label for="razon" class="form-label">{% trans "Razón del reporte:" %}</label>
         <textarea name="razon" class="form-control" required></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Enviar Reporte</button>
+      <button type="submit" class="btn btn-primary">{% trans "Enviar Reporte" %}</button>
     </form>
   </div>
 {% endblock %}

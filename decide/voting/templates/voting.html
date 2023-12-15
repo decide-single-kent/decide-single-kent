@@ -1,6 +1,6 @@
 {% extends "base.html" %}
-{% load i18n static %}
-
+{% load static %}
+{% load i18n %}
 {% block extrahead %}
     <link type="text/css" rel="stylesheet"
          href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
@@ -38,7 +38,7 @@
 </style>
 <div class="main-container">
   <div class="card">
-    <h2 class="text-center mb-4">Crear Nueva Votación</h2>
+    <h2 class="text-center mb-4">{% trans "Crear Nueva Votación" %}</h2>
     <form method="post" action="{% url 'voting' %}" class="needs-validation" novalidate>
       {% csrf_token %}
 
@@ -71,7 +71,7 @@
           +
         </button>
       </div>
-      <button class="btn btn-success w-100" type="submit">Crear Votación</button>
+      <button class="btn btn-success w-100" type="submit">{% trans "Crear Votación" %}</button>
     </form>
   </div>
 </div>

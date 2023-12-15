@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 {% load static %}
+{% load i18n %}
 
 <html lang="en">
 <head>
@@ -36,12 +37,12 @@
         <nav>
             {% if request.user.is_authenticated %}
             <a class="btn btn-outline-success" onClick="window.location.href='/logout'"
-               role="button">Cerrar Sesión</a>
+               role="button">{% trans "Cerrar Sesión" %}</a>
             <a class="btn btn-outline-success" onClick="window.location.href='/assigned_census'"
-               role="button">Votaciones Asignadas</a>
-            <a class="btn btn-outline-success"  onClick="window.location.href='/ver-comentarios'" role="button">Votaciones Finalizadas</a>
+               role="button">{% trans "Votaciones Asignadas" %}</a>
+            <a class="btn btn-outline-success"  onClick="window.location.href='/ver-comentarios'" role="button">{% trans "Votaciones Finalizadas" %}</a>
 
-            <a class="btn btn-outline-success" onClick="redirectToHome()" role="button">Home</a>
+            <a class="btn btn-outline-success" onClick="redirectToHome()" role="button">{% trans "Home" %}</a>
 
 
             <script>
@@ -51,8 +52,8 @@
             </script>
 
             {% else %}
-            <a class="btn btn-outline-success" href="{% url "core:signup" %}" role="button">Registro</a>
-            <a class="btn btn-outline-success" href="{% url "core:login" %}" role="button">Iniciar Sesion</a>
+            <a class="btn btn-outline-success" href="{% url "core:signup" %}" role="button">{% trans "Registro" %}</a>
+            <a class="btn btn-outline-success" href="{% url "core:login" %}" role="button">{% trans "Iniciar Sesion" %}</a>
 
             <script>
                 function redirectToHome() {
@@ -73,7 +74,7 @@
 <footer class="text-center text-lg-start bg-light text-muted">
     <section class="d-flex justify-content-center justify-content-lg-between p-4 border-bottom">
         <div class="me-5 d-none d-lg-block">
-            <span>Conecta con nosotros en nuestras redes sociales:</span>
+            <span>{% trans "Conecta con nosotros en nuestras redes sociales:" %}</span>
         </div>
         <div>
             <a href="https://www.facebook.com/UniversidaddeSevillaoficial" target="_blank" class="me-4 text-reset">
@@ -103,26 +104,24 @@
             <div class="row mt-3">
                 <div class="col-md-3 col-lg-4 col-xl-3 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">
-                        <i class="fas fa-gem me-3"></i> Universidad de Sevilla
+                        <i class="fas fa-gem me-3"></i> {% trans "Universidad de Sevilla" %}
                     </h6>
                     <p>
-                        Somos una de las universidades más antiguas, teniendo más de 500 años de historia, y la tercera
-                        universidad más grande de España
+                        {% trans "Somos una de las universidades más antiguas, teniendo más de 500 años de historia, y la tercera universidad más grande de España" %}
                     </p>
                 </div>
                 <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
                     <h6 class="text-uppercase fw-bold mb-4">
-                        Productos
+                        {% trans "Productos" %}
                     </h6>
 
                     <p>
-                        <a href="https://www.informatica.us.es/" target="_blank" class="text-reset">Universidad de
-                            Informática</a>
+                        <a href="https://www.informatica.us.es/" target="_blank" class="text-reset">{% trans "Universidad de Informática" %}</a>
                     </p>
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
-                    <h6 class="text-uppercase fw-bold mb-4">Contacto</h6>
-                    <p><i class="fas fa-home me-3"></i> Sevilla, Av. de la Reina Mercedes 41012, ES</p>
+                    <h6 class="text-uppercase fw-bold mb-4">{% trans "Contacto" %}</h6>
+                    <p><i class="fas fa-home me-3"></i> {% trans "Sevilla, Av. de la Reina Mercedes 41012, ES" %}</p>
                     <p>
                         <i class="fas fa-envelope me-3"></i>
                         VotacionesM4@votaciones.com

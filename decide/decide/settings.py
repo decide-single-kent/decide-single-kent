@@ -55,7 +55,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     ]
 
-SITE_ID = 2
+SITE_ID = 3
 
 SOCIAL_ACCOUNT_PROVIDERS = {
     'google' : {
@@ -104,7 +104,6 @@ BASEURL = 'http://localhost:8000'
 #middleware locale agregado por Alvaro
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -192,6 +191,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
 
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
