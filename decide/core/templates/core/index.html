@@ -9,7 +9,9 @@
 
 {% endblock header %}
 
-{% block description %} {% trans "¿Quienes somos?" %} {% endblock description %}
+{% block description %} 
+{% trans "¿Quienes somos?" %}
+{% endblock description %}
 
 
 {% block content %}
@@ -26,5 +28,6 @@
     {% if request.user.is_authenticated %}
     <a class="btn btn-outline-success" onClick="window.location.href='/voting/voting'" role="button">{% trans "Crear votación" %}</a>
     {% endif %}
+
   </article>
 {% endblock content %}

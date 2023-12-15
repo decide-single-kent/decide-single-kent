@@ -179,8 +179,8 @@ LANGUAGE_CODE = 'es'
 
 #cambiado por Alvaro 
 LANGUAGES = [
-    ('es', _('Spanish')),
-    ('en', _('English')),
+    ('es', 'Spanish'),
+    ('en', 'English'),
     
 ]
 
