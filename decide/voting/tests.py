@@ -1,11 +1,13 @@
 import random
 import itertools
+from django.forms import ValidationError
 from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.test import TestCase
+from django.test import Client, RequestFactory, TestCase
+from voting.views import voting
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 
@@ -30,7 +32,7 @@ class VotingCreationTests(TestCase):
 
     def setUp(self):
         # Crear un usuario para la autenticación
-        self.usuario = User.objects.create_user(username='admin', password='contraseña123')
+        self.usuario = User.objects.create_user(username='test', password='contraseña123')
         self.question = Question.objects.create(desc='¿Cuál es tu color favorito?')
         self.auth = Auth.objects.create(name='Auth Test', url='https://auth.example.com', me=False)
 
@@ -74,6 +76,52 @@ class VotingCreationTests(TestCase):
         # Verificar que la votación se haya creado correctamente
         self.assertEqual(voting.name, 'Voting Test')
         self.assertTrue(Voting.objects.filter(name='Voting Test').exists())
+
+    def test_creacion_question_sin_opciones(self):
+        # Crear una pregunta sin opciones
+        question_sin_opciones = Question.objects.create(desc='¿Cuál es tu número favorito?')
+
+        # Verificar que la pregunta se haya creado correctamente
+        self.assertEqual(question_sin_opciones.desc, '¿Cuál es tu número favorito?')
+
+        # Verificar que no haya opciones asociadas a la pregunta
+        self.assertFalse(question_sin_opciones.options.exists())
+        
+    def test_crear_voting(self):
+        # Crear un comentario
+        voting = Voting.objects.create(
+            name='PruebaTest',
+            desc='Este es un test de prueba.',
+            question=self.question,
+        )
+
+        voting.auths.set([self.auth])
+
+        # Verificar que el comentario se haya creado correctamente
+        self.assertEqual(voting.name, 'PruebaTest')
+        self.assertEqual(voting.desc, 'Este es un test de prueba.')
+        self.assertEqual(voting.question, self.question)
+        self.assertIn(self.auth, voting.auths.all())
+
+
+
+    def test_creacion_voting_sin_autenticacion(self):
+        # Verificar que un usuario no autenticado no pueda crear una votación
+        form_data = {
+            'name': 'Voting Test',
+            'desc': 'Descripción de la votación',
+            'question': self.question,
+            'auth': self.auth,
+        }
+
+        # Configurar un cliente sin autenticación
+        unauthenticated_client = Client()
+
+        response = unauthenticated_client.post(reverse('create_voting'), form_data)
+        self.assertEqual(response.status_code, 302)  # Verificar redirección a la página de inicio de sesión
+
+        # Verificar que la votación no se haya creado
+        self.assertFalse(Voting.objects.filter(name='Voting Test').exists())
 
 
 class VotingTestCase(BaseTestCase):
@@ -177,12 +225,12 @@ class VotingTestCase(BaseTestCase):
         response = self.client.post('/voting/', data, format='json')
         self.assertEqual(response.status_code, 401)
 
-        # login with user no admin
+        #login with user no admin
         self.login(user='noadmin')
         response = mods.post('voting', params=data, response=True)
         self.assertEqual(response.status_code, 403)
 
-        # login with user admin
+        #login with user admin
         self.login()
         response = mods.post('voting', params=data, response=True)
         self.assertEqual(response.status_code, 400)
@@ -201,21 +249,21 @@ class VotingTestCase(BaseTestCase):
         voting = self.create_voting()
 
         data = {'action': 'start'}
-        #response = self.client.post('/voting/{}/'.format(voting.pk), data, format='json')
-        #self.assertEqual(response.status_code, 401)
+        response = self.client.post('/voting/{}/'.format(voting.pk), data, format='json')
+        self.assertEqual(response.status_code, 401)
 
-        # login with user no admin
+        #login with user no admin
         self.login(user='noadmin')
         response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
         self.assertEqual(response.status_code, 403)
 
-        # login with user admin
+        #login with user admin
         self.login()
         data = {'action': 'bad'}
         response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
         self.assertEqual(response.status_code, 400)
 
-        # STATUS VOTING: not started
+        #STATUS VOTING: not started
         for action in ['stop', 'tally']:
             data = {'action': action}
             response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
@@ -227,7 +275,7 @@ class VotingTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), 'Voting started')
 
-        # STATUS VOTING: started
+        #STATUS VOTING: started
         data = {'action': 'start'}
         response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
         self.assertEqual(response.status_code, 400)
@@ -243,7 +291,7 @@ class VotingTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), 'Voting stopped')
 
-        # STATUS VOTING: stopped
+        #STATUS VOTING: stopped
         data = {'action': 'start'}
         response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
         self.assertEqual(response.status_code, 400)
@@ -259,7 +307,7 @@ class VotingTestCase(BaseTestCase):
         self.assertEqual(response.status_code, 200)
         self.assertEqual(response.json(), 'Voting tallied')
 
-        # STATUS VOTING: tallied
+        #STATUS VOTING: tallied
         data = {'action': 'start'}
         response = self.client.put('/voting/{}/'.format(voting.pk), data, format='json')
         self.assertEqual(response.status_code, 400)

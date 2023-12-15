@@ -39,7 +39,7 @@
 <div class="main-container">
   <div class="card">
     <h2 class="text-center mb-4">Crear Nueva Votación</h2>
-    <form method="post" action="{% url 'voting' %}" class="needs-validation" novalidate>
+    <form method="post" action="{% url 'create_voting' %}" class="needs-validation" novalidate>
       {% csrf_token %}
 
       <!-- Campo 'name' -->
