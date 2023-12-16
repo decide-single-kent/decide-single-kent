@@ -181,6 +181,7 @@ LANGUAGE_CODE = 'es'
 LANGUAGES = [
     ('es', 'Spanish'),
     ('en', 'English'),
+    ('fr', 'French')
     
 ]
 
