@@ -2,77 +2,58 @@
 {% load static %}
 {% load i18n %}
 {% block extrahead %}
-    <link type="text/css" rel="stylesheet"
-         href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
-    <link type="text/css" rel="stylesheet" href="{% static 'booth/style.css' %}" />
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
+<link type="text/css" rel="stylesheet" href="https://unpkg.com/bootstrap/dist/css/bootstrap.min.css" />
+<link type="text/css" rel="stylesheet" href="{% static 'booth/style.css' %}" />
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.2/font/bootstrap-icons.min.css">
 {% endblock %}
 
 {% block content %}
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-    background-color: blanchedalmond;
-    font-family: 'Arial', sans-serif;
-    height: 100%;
-  }
 
-  html, body, .main-container {
-    height: 100%;
-  }
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6">
+      <div class="card">
+        <div class="card-body">
+          <h2 class="card-title text-center">{% trans "Crear Nueva Votación" %}</h2>
+          <form method="post" action="{% url 'voting' %}" class="needs-validation" novalidate>
+            {% csrf_token %}
 
-  .main-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 80vh;
-    background-color: rgba(255, 255, 255, 0.9);
-  }
+            <!-- Campo 'name' -->
+            <div class="form-group">
+              {{ form.name.label_tag }}
+              {{ form.name }}
+            </div>
 
-  .card {
-    width: 400px;
-    padding: 20px;
-    background-color: #f0f8ff;
-  }
-</style>
-<div class="main-container">
-  <div class="card">
-    <h2 class="text-center mb-4">{% trans "Crear Nueva Votación" %}</h2>
-    <form method="post" action="{% url 'voting' %}" class="needs-validation" novalidate>
-      {% csrf_token %}
+            <!-- Campo 'desc' -->
+            <div class="form-group">
+              {{ form.desc.label_tag }}
+              {{ form.desc }}
+            </div>
 
-      <!-- Campo 'name' -->
-      <div class="form-group">
-        {{ form.name.label_tag }}
-        {{ form.name }}
+            <!-- Campo 'question' en la misma línea con el botón '+' -->
+            <div class="form-group">
+              {{ form.question.label_tag }}
+              {{ form.question }}
+              <button id="btnAddQuestion" class="btn btn-primary ml-2" type="button"
+                style="padding: 5px; box-sizing: content-box;" onclick="openNewPage()">
+                +
+              </button>
+            </div>
+
+            <!-- Campo 'auths' -->
+            <div class="form-group">
+              {{ form.auths.label_tag }}
+              {{ form.auths }}
+              <button id="btnAddQuestion" class="btn btn-primary ml-2" type="button"
+                style="padding: 5px; box-sizing: content-box;" onclick="openNewPage2()">
+                +
+              </button>
+            </div>
+            <button class="btn btn-success w-100" type="submit">{% trans "Crear Votación" %}</button>
+          </form>
+        </div>
       </div>
-
-      <!-- Campo 'desc' -->
-      <div class="form-group">
-        {{ form.desc.label_tag }}
-        {{ form.desc }}
-      </div>
-
-      <!-- Campo 'question' en la misma línea con el botón '+' -->
-      <div class="form-group">
-        {{ form.question.label_tag }}
-          {{ form.question }}
-          <button id="btnAddQuestion" class="btn btn-primary ml-2" type="button" style="padding: 5px; box-sizing: content-box;" onclick="openNewPage()" >
-            +
-          </button>
-      </div>
-
-      <!-- Campo 'auths' -->
-      <div class="form-group">
-        {{ form.auths.label_tag }}
-        {{ form.auths }}
-        <button id="btnAddQuestion" class="btn btn-primary ml-2" type="button" style="padding: 5px; box-sizing: content-box;" onclick="openNewPage2()" >
-          +
-        </button>
-      </div>
-      <button class="btn btn-success w-100" type="submit">{% trans "Crear Votación" %}</button>
-    </form>
+    </div>
   </div>
 </div>
 <script>
@@ -80,7 +61,7 @@
     var newWindow = window.open("{% url 'new_question' %}", "New Question", "width=600,height=400");
 
     // Agregar un listener para detectar el cierre de la ventana secundaria
-    newWindow.addEventListener('beforeunload', function() {
+    newWindow.addEventListener('beforeunload', function () {
       // Recargar la ventana principal al cerrar la ventana secundaria
       location.reload();
     });
