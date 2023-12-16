@@ -1,5 +1,3 @@
-from django.contrib.auth.views import LoginView
-from django.views.generic.edit import CreateView
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from census.models import Census
@@ -7,9 +5,14 @@ from voting.models import Voting
 from django.utils import timezone
 from django.contrib.auth.decorators import login_required
 
+
+
 from .forms import SignUpForm 
 
 def home(request):
+  if 'django_language' in request.session:
+     del request.session['django_language']
+
   return render(request, 'core/index.html', {"usuario": request.user})
 
 def signup(request):

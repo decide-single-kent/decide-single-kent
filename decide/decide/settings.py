@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from django.utils.translation import gettext_lazy as _
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -55,7 +54,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     ]
 
-SITE_ID = 2
+SITE_ID = 3
 
 SOCIAL_ACCOUNT_PROVIDERS = {
     'google' : {
@@ -104,7 +103,6 @@ BASEURL = 'http://localhost:8000'
 #middleware locale agregado por Alvaro
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -180,8 +178,9 @@ LANGUAGE_CODE = 'es'
 
 #cambiado por Alvaro 
 LANGUAGES = [
-    ('es', _('Spanish')),
-    ('en', _('English')),
+    ('es', 'Spanish'),
+    ('en', 'English'),
+    ('fr', 'French')
     
 ]
 
@@ -192,6 +191,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
 
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'

@@ -1,29 +1,33 @@
 {% extends "core/base.html" %}
 
 {% load static %}
+{% load i18n %}
 
-{% block title %} Home {% endblock title %}
+{% block title %} {% trans "Home" %} {% endblock title %}
 
 {% block header %}
 
 {% endblock header %}
 
-{% block description %}¿Quienes somos?{% endblock description %}
+{% block description %} 
+{% trans "¿Quienes somos?" %}
+{% endblock description %}
 
 
 {% block content %}
   <article>
     <div class="index-div-first-section-header" style="margin-left:20px">
-      <h3>Bienvenido {{ usuario }}</h3>
+      <h3>{% trans "Bienvenido" %} {{ usuario }}</h3>
     
     </div>
     <section class="index-section-description" style="margin-left:20px">
       <p>
-        En <strong>VotacionesM4</strong>, nos dedicamos a la creación de votaciones para cualquier tipo de evento, ya sea para una empresa, una asociación, un grupo de amigos, etc.
+        {% trans "En " %}<strong>VotacionesM4</strong>{% trans ", nos dedicamos a la creación de votaciones para cualquier tipo de evento, ya sea para una empresa, una asociación, un grupo de amigos, etc." %} 
       </p>
     </section>
     {% if request.user.is_authenticated %}
-    <a class="btn btn-outline-success" onClick="window.location.href='/voting/voting'" role="button">Crear Votación</a>
+    <a class="btn btn-outline-success" onClick="window.location.href='/voting/voting'" role="button">{% trans "Crear votación" %}</a>
     {% endif %}
+
   </article>
 {% endblock content %}

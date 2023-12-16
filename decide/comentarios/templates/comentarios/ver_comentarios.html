@@ -1,5 +1,8 @@
 {% extends 'base.html' %}
-{% block description %}La Lista de Comentarios{% endblock description %}
+
+{% load i18n %}
+
+{% block description %}{% trans "Votaciones finalizadas y comentarios" %}{% endblock description %}
 
 {% block content %}
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
@@ -7,10 +10,10 @@
 <table class="table mx-auto">
     <thead>
       <tr>
-        <th>ID de la votación</th>
-        <th>Nombre de la votación</th>
-        <th>Fecha de inicio</th>
-        <th>Fecha de fin</th>
+        <th>{% trans "ID de la votación" %}</th>
+        <th>{% trans "Nombre de la votación" %}</th>
+        <th>{% trans "Fecha de inicio" %}</th>
+        <th>{% trans "Fecha de fin" %}</th>
       </tr>
     </thead>
     <tbody>
@@ -32,7 +35,7 @@
         <div class="row justify-content-center" >
 
             <div class="col-md-11 col-lg-9 col-xl-7">
-                <a class="btn btn-secondary mt-3" href="{% url 'agregar_comentario' %}" style="margin-left:220px; margin-bottom:20px">Agregar Comentario</a>
+                <a class="btn btn-secondary mt-3" href="{% url 'agregar_comentario' %}" style="margin-left:220px; margin-bottom:20px">{% trans "Agregar Comentario" %}</a>
 
 
                 <ul class="list-group">
@@ -62,13 +65,13 @@
                                                 </div>
                                                 <div class="d-flex align-items-center">
                                                     <a href="{% url 'editar_comentario' comentario.id %}" class="btn btn-sm btn-warning me-2">
-                                                        <i class="fas fa-edit me-1"></i>Editar
+                                                        <i class="fas fa-edit me-1"></i>{% trans "Editar" %}
                                                     </a>
                                                     <a href="{% url 'borrar_comentario' comentario.id %}" class="btn btn-sm btn-danger">
-                                                        <i class="fas fa-trash me-1"></i>Borrar
+                                                        <i class="fas fa-trash me-1"></i>{% trans "Borrar" %}
                                                     </a>
                                                      <a href="{% url 'crear_reporte' comentario.id %}" class="btn btn-sm btn-info me-2">
-                                                          <i class="fas fa-flag me-1"></i>Reportar
+                                                          <i class="fas fa-flag me-1"></i>{% trans "Reportar" %}
                                                       </a>
 
                                                 </div>
