@@ -22,7 +22,7 @@ class CoreViewsTestCase(TestCase):
         self.assertTemplateUsed(response, 'core/signup.html')
 
         response = self.client.post(reverse('core:signup'), {'username': 'newuser', 'password1': 'newpassword', 'password2': 'newpassword'})
-        self.assertEqual(response.status_code, 200) 
+        self.assertEqual(response.status_code, 200)
 
     def test_logout_view(self):
         response = self.client.get(reverse('core:logout'))

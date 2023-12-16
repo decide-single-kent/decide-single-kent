@@ -1,6 +1,3 @@
-from django.utils import translation
-from django.contrib.auth.views import LoginView
-from django.views.generic.edit import CreateView
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from census.models import Census
