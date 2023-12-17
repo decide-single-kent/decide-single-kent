@@ -55,6 +55,8 @@ VotacionesM4 es una aplicación web que te permite crear y votar en encuestas pe
 
 8. Volvemos a inicio, podemos acceder ahora a las votaciones finalizadas:
    En esta vista, podemos ver la lista de votaciones finalizadas y una lista de comentarios.
+   ![image](https://github.com/decide-single-kent/decide-single-kent/blob/feature/72-Complete_documentation/resources/votaciones_finalizadas.png?raw=true)
+   
    Los comentarios se pueden crear, borrar, editar, o reportar.
    Tienes 5 minutos despues de la creacion de un comentario para poder borrar o editar este, sino, estas acciones no seran permitidas:
    ![image](https://github.com/decide-single-kent/decide-single-kent/blob/feature/72-Complete_documentation/resources/no_permitido_comentarios.png?raw=true)
@@ -63,7 +65,7 @@ VotacionesM4 es una aplicación web que te permite crear y votar en encuestas pe
    Al crear un comentario, su autor es el usuario con el que esta autenticado que haya creado dicho comentario, lo cual se asigna automaticamente.
    Vamos a analizar como ver los resultados de una votacion finalizada
    Para finalizar una votación, antes ha debido ser acabada y realizado el conteo mediante localhost:8000/admin
-   ![image](https://github.com/decide-single-kent/decide-single-kent/blob/feature/72-Complete_documentation/resources/votaciones_finalizadas.png?raw=true)
+   
 
 10. Accedemos a una votacion finalizada mediante su ID y vemos los datos guardados sobre esta.
     ![image](https://github.com/decide-single-kent/decide-single-kent/blob/feature/72-Complete_documentation/resources/visualizer.png?raw=true)
