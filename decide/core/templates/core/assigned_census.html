@@ -1,22 +1,23 @@
 {% extends "core/base.html" %}
 
 {% load static %}
+{% load i18n %}
 
-{% block title %} Assigned census {% endblock title %}
+{% block title %} {% trans "Censos asignados" %} {% endblock title %}
 
 {% block header %}
 {% endblock header %}
 
-{% block description %}Tienes estos census asignados{% endblock description %}
+{% block description %} {% trans "Tienes estos census asignados" %}{% endblock description %}
 
 {% block content %}
-<h2 class="text-center">Lista de census</h2>
+<h2 class="text-center">{% trans "Lista de census" %}</h2>
 <table class="table mx-auto">
   <thead>
     <tr>
-      <th>ID de la votación</th>
-      <th>Nombre de la votación</th>
-      <th>Fecha de inicio</th>
+      <th>{% trans "ID de la votación" %}</th>
+      <th>{% trans "Nombre de la votación" %}</th>
+      <th>{% trans "Fecha de inicio" %}</th>
     </tr>
   </thead>
   <tbody>

@@ -1,0 +1,404 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2023-12-16 00:28+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+#: base/templates/base.html:51 core/templates/core/base.html:47
+msgid "Traducir"
+msgstr "Traduire"
+
+#: base/templates/base.html:57 booth/templates/booth/booth.html:34
+#: core/templates/core/base.html:54
+#: visualizer/templates/visualizer/visualizer.html:25
+msgid "Votaciones Asignadas"
+msgstr "Votes attribués"
+
+#: base/templates/base.html:58 booth/templates/booth/booth.html:35
+#: core/templates/core/base.html:55
+#: visualizer/templates/visualizer/visualizer.html:26
+msgid "Votaciones Finalizadas"
+msgstr "Votes terminés"
+
+#: base/templates/base.html:60 core/templates/core/base.html:57
+#: core/templates/core/index.html:6
+#: visualizer/templates/visualizer/visualizer.html:28
+msgid "Home"
+msgstr "Accueil"
+
+#: base/templates/base.html:63 core/templates/core/base.html:60
+#: visualizer/templates/visualizer/visualizer.html:23
+msgid "Cerrar Sesión"
+msgstr "Déconnexion"
+
+#: base/templates/base.html:75 core/templates/core/base.html:71
+#: visualizer/templates/visualizer/visualizer.html:37
+msgid "Registro"
+msgstr "Registre"
+
+#: base/templates/base.html:76 core/templates/core/base.html:72
+#: visualizer/templates/visualizer/visualizer.html:38
+msgid "Iniciar Sesion"
+msgstr "Connexion"
+
+#: base/templates/base.html:97 booth/templates/booth/booth.html:323
+#: core/templates/core/base.html:87
+msgid "Conecta con nosotros en nuestras redes sociales:"
+msgstr "Connectez-vous avec nous sur nos réseaux sociaux:"
+
+#: base/templates/base.html:127 booth/templates/booth/booth.html:353
+#: core/templates/core/base.html:117
+msgid "Universidad de Sevilla"
+msgstr "Université de Séville"
+
+#: base/templates/base.html:130
+msgid ""
+"Somos una de las universidades más antiguas, teniendo más de 500 años de "
+"historia, y la tercera universidad más grande de España"
+msgstr "Nous sommes l'une des plus anciennes universités, avec plus de 500 ans d'histoire, et la troisième plus grande université d'Espagne."
+
+#: base/templates/base.html:135 booth/templates/booth/booth.html:361
+#: core/templates/core/base.html:125
+msgid "Productos"
+msgstr "Produits"
+
+#: base/templates/base.html:139 booth/templates/booth/booth.html:365
+#: core/templates/core/base.html:129
+msgid "Universidad de Informática"
+msgstr "Université d'informatique"
+
+#: base/templates/base.html:143 booth/templates/booth/booth.html:369
+#: core/templates/core/base.html:133
+msgid "Contacto"
+msgstr "Contact"
+
+#: base/templates/base.html:144 booth/templates/booth/booth.html:370
+#: core/templates/core/base.html:134
+msgid "Sevilla, Av. de la Reina Mercedes 41012, ES"
+msgstr "Séville, Av. de la Reina Mercedes 41012, ES"
+
+#: booth/templates/booth/booth.html:26
+msgid "Logout"
+msgstr "Déconnexion"
+
+#: booth/templates/booth/booth.html:31 booth/templates/booth/booth.html:97
+#: booth/templates/booth/booth.html:123
+msgid "Login"
+msgstr "Connexion"
+
+#: booth/templates/booth/booth.html:88
+msgid "¡Debe iniciar sesión para poder acceder a la votación!"
+msgstr "Vous devez être connecté pour accéder au vote !"
+
+#: booth/templates/booth/booth.html:104
+msgid "Username"
+msgstr "Nom d'utilisateur"
+
+#: booth/templates/booth/booth.html:114
+msgid "Password"
+msgstr "Mot de passe"
+
+#: booth/templates/booth/booth.html:145
+msgid "Vote"
+msgstr "Vote"
+
+#: booth/templates/booth/booth.html:258 booth/templates/booth/booth.html:269
+#: booth/templates/booth/booth.html:305
+msgid "Error: "
+msgstr "Erreur : "
+
+#: booth/templates/booth/booth.html:301
+msgid "Congratulations. Your vote has been sent"
+msgstr "Félicitations. Votre vote a été envoyé"
+
+#: booth/templates/booth/booth.html:356 core/templates/core/base.html:120
+msgid ""
+"Somos una de las universidades más antiguas, teniendo mas de 500 años de "
+"historia, y la tercera universidad mas grande de España"
+msgstr "Nous sommes l'une des plus anciennes universités, avec plus de 500 ans d'histoire, et la troisième plus grande université d'Espagne."
+
+#: comentarios/templates/comentarios/agregar_comentario.html:5
+msgid "Tu Opinión :)"
+msgstr "Votre avis :)"
+
+#: comentarios/templates/comentarios/agregar_comentario.html:14
+#: comentarios/templates/comentarios/agregar_comentario.html:18
+#: comentarios/templates/comentarios/ver_comentarios.html:38
+msgid "Agregar Comentario"
+msgstr "Ajouter un commentaire"
+
+#: comentarios/templates/comentarios/agregar_comentario.html:20
+msgid "Ver Comentarios"
+msgstr "Voir commentaires"
+
+#: comentarios/templates/comentarios/crear_reporte.html:9
+msgid "Crear Reporte"
+msgstr "Créer un rapport"
+
+#: comentarios/templates/comentarios/crear_reporte.html:13
+msgid "Razón del reporte:"
+msgstr "Motif du rapport :"
+
+#: comentarios/templates/comentarios/crear_reporte.html:16
+msgid "Enviar Reporte"
+msgstr "Soumettre un rapport"
+
+#: comentarios/templates/comentarios/editar_comentario.html:6
+msgid "Editar Comentario"
+msgstr "Modifier le commentaire"
+
+#: comentarios/templates/comentarios/editar_comentario.html:10
+msgid "Guardar Cambios"
+msgstr "Enregistrer les modifications"
+
+#: comentarios/templates/comentarios/editar_comentario.html:12
+#: comentarios/templates/comentarios/no_borrar_comentario.html:19
+#: comentarios/templates/comentarios/no_editar_comentario.html:20
+msgid "Volver a Comentarios"
+msgstr "Retour aux commentaires"
+
+#: comentarios/templates/comentarios/no_autenticado.html:8
+msgid "Pantalla no autenticado"
+msgstr "L'écran n'est pas authentifié"
+
+#: comentarios/templates/comentarios/no_autenticado.html:46
+msgid "Tienes que iniciar sesión para visualizar esta pantalla"
+msgstr "Vous devez être connecté pour voir cet écran"
+
+#: comentarios/templates/comentarios/no_autenticado.html:47
+#: core/templates/core/signup.html:68
+msgid "¿Ya tienes una cuenta?"
+msgstr "Vous avez déjà un compte ?"
+
+#: comentarios/templates/comentarios/no_autenticado.html:47
+#: core/templates/core/signup.html:68
+msgid "Inicia sesión aquí"
+msgstr "Connectez-vous ici"
+
+#: comentarios/templates/comentarios/no_autenticado.html:48
+#: core/templates/core/login.html:45
+msgid "No tienes una cuenta todavía?"
+msgstr "Vous n'avez pas encore de compte ?"
+
+#: comentarios/templates/comentarios/no_autenticado.html:48
+#: core/templates/core/login.html:45
+msgid "Regístrate aquí"
+msgstr "S'inscrire ici"
+
+#: comentarios/templates/comentarios/no_borrar_comentario.html:18
+msgid "No puedes borrar este comentario"
+msgstr "Vous ne pouvez pas supprimer ce commentaire"
+
+#: comentarios/templates/comentarios/no_editar_comentario.html:19
+msgid "No puedes editar este comentario"
+msgstr "Vous ne pouvez pas modifier ce commentaire"
+
+#: comentarios/templates/comentarios/ver_comentarios.html:5
+msgid "Votaciones finalizadas y comentarios"
+msgstr "Achèvement du vote et commentaires"
+
+#: comentarios/templates/comentarios/ver_comentarios.html:13
+#: core/templates/core/assigned_census.html:18
+msgid "ID de la votación"
+msgstr "ID de vote"
+
+#: comentarios/templates/comentarios/ver_comentarios.html:14
+#: core/templates/core/assigned_census.html:19
+msgid "Nombre de la votación"
+msgstr "Nom du vote"
+
+#: comentarios/templates/comentarios/ver_comentarios.html:15
+#: core/templates/core/assigned_census.html:20
+msgid "Fecha de inicio"
+msgstr "Date de début"
+
+#: comentarios/templates/comentarios/ver_comentarios.html:16
+msgid "Fecha de fin"
+msgstr "Date de fin"
+
+#: comentarios/templates/comentarios/ver_comentarios.html:68
+msgid "Editar"
+msgstr "éditer"
+
+#: comentarios/templates/comentarios/ver_comentarios.html:71
+msgid "Borrar"
+msgstr "supprimer"
+
+#: comentarios/templates/comentarios/ver_comentarios.html:74
+msgid "Reportar"
+msgstr "Rapport"
+
+#: core/templates/core/assigned_census.html:6
+msgid "Censos asignados"
+msgstr "Recensement attribué"
+
+#: core/templates/core/assigned_census.html:11
+msgid "Tienes estos census asignados"
+msgstr "Ces recensements vous ont été confiés"
+
+#: core/templates/core/assigned_census.html:14
+msgid "Lista de census"
+msgstr "Liste de recensement"
+
+#: core/templates/core/index.html:13
+msgid "¿Quienes somos?"
+msgstr "Qui sommes-nous ?"
+
+#: core/templates/core/index.html:20
+msgid "Bienvenido"
+msgstr "Bienvenue"
+
+#: core/templates/core/index.html:25
+msgid "En "
+msgstr "Au"
+
+#: core/templates/core/index.html:25
+msgid ""
+", nos dedicamos a la creación de votaciones para cualquier tipo de evento, "
+"ya sea para una empresa, una asociación, un grupo de amigos, etc."
+msgstr "nous nous consacrons à la création de bulletins de vote pour tout type d'événement, que ce soit pour une entreprise, une association, un groupe d'amis, etc."
+
+#: core/templates/core/index.html:29
+msgid "Crear votación"
+msgstr "Créer un vote"
+
+#: core/templates/core/login.html:8
+msgid "Inicia Sesión"
+msgstr "Connexion"
+
+#: core/templates/core/login.html:18
+msgid "Iniciar Sesión"
+msgstr "Connexion"
+
+#: core/templates/core/login.html:25
+msgid "Nombre de usuario"
+msgstr "Nom de l'utilisateur"
+
+#: core/templates/core/login.html:32 core/templates/core/signup.html:40
+msgid "Contraseña"
+msgstr "mot de passe"
+
+#: core/templates/core/login.html:49
+msgid "Iniciar sesión con Google"
+msgstr "Se connecter avec Google"
+
+#: core/templates/core/signup.html:21
+msgid "Regístrate"
+msgstr "Registre"
+
+#: core/templates/core/signup.html:32
+msgid "Correo electrónico"
+msgstr "Adresse électronique"
+
+#: core/templates/core/signup.html:48
+msgid "Confirmación de Contraseña"
+msgstr "Confirmation du mot de passe"
+
+#: core/templates/core/signup.html:64
+msgid "Registrarse"
+msgstr "Registre"
+
+#: decide/urls.py:17
+msgid "admin/"
+msgstr "admin/"
+
+#: visualizer/templates/visualizer/visualizer.html:49
+msgid "Votación no comenzada"
+msgstr "Le vote n'a pas commencé"
+
+#: visualizer/templates/visualizer/visualizer.html:50
+msgid "Votación en curso"
+msgstr "Vote en cours"
+
+#: visualizer/templates/visualizer/visualizer.html:52
+msgid "Resultados:"
+msgstr "Résultats :"
+
+#: visualizer/templates/visualizer/visualizer.html:53
+msgid "La votación fue respondida por"
+msgstr "Il a été répondu au vote par"
+
+#: visualizer/templates/visualizer/visualizer.html:53
+msgid "persona(s)"
+msgstr "personne(s)"
+
+#: visualizer/templates/visualizer/visualizer.html:56
+msgid "La opción más votos fue: "
+msgstr "L'option la plus votée est la suivante : "
+
+#: visualizer/templates/visualizer/visualizer.html:64
+msgid "Opción"
+msgstr "Option"
+
+#: visualizer/templates/visualizer/visualizer.html:65
+msgid "Puntuación"
+msgstr "Score"
+
+#: visualizer/templates/visualizer/visualizer.html:66
+msgid "Votos"
+msgstr "Votes"
+
+#: visualizer/templates/visualizer/visualizer.html:67
+msgid "Porcentaje"
+msgstr "Pourcentage"
+
+#: voting/templates/new_auth.html:11
+msgid "Nuevo Auth"
+msgstr "Nouvelle autorisation"
+
+#: voting/templates/new_auth.html:15
+msgid "Crear Auth"
+msgstr "Créer autorisation"
+
+#: voting/templates/new_question.html:11
+msgid "Nueva Pregunta"
+msgstr "Nouvelle question"
+
+#: voting/templates/new_question.html:16
+msgid "Crear Pregunta"
+msgstr "Créer question"
+
+#: voting/templates/voting.html:41
+msgid "Crear Nueva Votación"
+msgstr "Créer un nouveau vote"
+
+#: voting/templates/voting.html:74
+msgid "Crear Votación"
+msgstr "Créer vote"
+
+#: voting/views.py:90
+msgid "Voting stopped"
+msgstr "Arrêt du vote"
+
+#: voting/views.py:93
+msgid "Voting is not started"
+msgstr "Le vote n'a pas commencé"
+
+#: voting/views.py:96
+msgid "Voting is not stopped"
+msgstr "Le vote n'est pas interrompu"
+
+#: voting/views.py:99
+msgid "Voting already tallied"
+msgstr "Les votes sont déjà comptabilisés"
+
+#: voting/views.py:103
+msgid "Voting tallied"
+msgstr "Dépouillement des votes"
+
+#: voting/views.py:105
+msgid "Action not found, try with start, stop or tally"
+msgstr "Action non trouvée, essayez avec start, stop ou tally"
