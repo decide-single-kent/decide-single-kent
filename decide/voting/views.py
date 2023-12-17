@@ -113,13 +113,10 @@ def voting(request):
         form = VotingForm(request.POST)
         if form.is_valid():
             # Guarda la votación en la base de datos
-            voting_instance = form.save(commit=False)
-            # Realiza cualquier manipulación adicional antes de guardar
-            # (por ejemplo, establecer fechas, generar claves, etc.)
-            voting_instance.save()
+            form.save()
 
             # Redirige a la página de detalles de la votación o a donde desees
-            return redirect('/', pk=voting_instance.pk)
+            return redirect('/')
     else:
         form = VotingForm()
 
