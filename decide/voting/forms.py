@@ -10,6 +10,10 @@ class VotingForm(forms.ModelForm):
     class Meta:
         model = Voting
         fields = ['name', 'desc', 'question', 'auths']
+        name = forms.CharField(label='Nombre', required=True)
+        desc = forms.CharField(label='Descripción', required=True)
+        question = forms.CharField(label='Pregunta', required=True)
+        auths = forms.CharField(label='Auth', required=True)
 
 class QuestionForm(forms.ModelForm):
 

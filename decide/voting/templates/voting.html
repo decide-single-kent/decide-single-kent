@@ -15,7 +15,7 @@
       <div class="card">
         <div class="card-body">
           <h2 class="card-title text-center">{% trans "Crear Nueva Votación" %}</h2>
-          <form method="post" action="{% url 'voting' %}" class="needs-validation" novalidate>
+          <form method="post" action="{% url 'voting' %}" class="needs-validation">
             {% csrf_token %}
 
             <!-- Campo 'name' -->
