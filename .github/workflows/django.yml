@@ -49,6 +49,7 @@ jobs:
     - name: Run migrations (unnecessary)
       run: |
         cd decide
+        cp .env.example .env
         python manage.py migrate
     - name: Run tests
       run: |
