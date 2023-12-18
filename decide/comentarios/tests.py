@@ -51,7 +51,6 @@ class ComentariosViewsTestCase(TestCase):
 
         # Verifica que la respuesta sea un redireccionamiento
         self.assertEqual(response.status_code, 302)
-pip install coverage
         # Actualiza el objeto de comentario desde la base de datos
         self.comentario.refresh_from_db()
 

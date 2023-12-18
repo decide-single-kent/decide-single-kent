@@ -32,10 +32,8 @@ def agregar_comentario(request):
 
             if contiene_palabra_inapropiada(nuevo_comentario):
                 messages.warning(request, 'Tu comentario contiene palabras inapropiadas y puede ser eliminado. ¡Por favor, sé respetuoso!')
-                return redirect('ver_comentarios') 
-
-            with transaction.atomic():
-                form.save()
+                return redirect('ver_comentarios')
+            form.save()
             return redirect('ver_comentarios')
     else:
         form = ComentarioForm()
