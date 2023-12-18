@@ -1,9 +1,11 @@
 {% extends 'base.html' %}
+{% load i18n %}
+
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>Pantalla no autenticado</title>
+    <title>{% trans "Pantalla no autenticado" %}</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="css/style.css" rel="stylesheet">
@@ -41,9 +43,9 @@
 <body>
     <div class="page-container">
         <div class="content-container">
-            <h2>Tienes que iniciar sesión para visualizar esta pantalla</h2>
-            <p class="text-muted mt-3">¿Ya tienes una cuenta? <a href="{% url 'core:login' %}" class="btn-link">Inicia sesión aquí</a></p>
-            <p class="text-muted mt-3">No tienes una cuenta todavía? <a href="{% url 'core:signup' %}" class="link-info btn-link">Regístrate aquí</a></p>
+            <h2>{% trans "Tienes que iniciar sesión para visualizar esta pantalla" %}</h2>
+            <p class="text-muted mt-3">{% trans "¿Ya tienes una cuenta?" %} <a href="{% url 'core:login' %}" class="btn-link">{% trans "Inicia sesión aquí" %}</a></p>
+            <p class="text-muted mt-3">{% trans "No tienes una cuenta todavía?" %} <a href="{% url 'core:signup' %}" class="link-info btn-link">{% trans "Regístrate aquí" %}</a></p>
         </div>
     </div>
 </body>

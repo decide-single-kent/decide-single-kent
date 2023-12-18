@@ -1,6 +1,7 @@
 {% extends "core/base.html" %}
 
 {% load static %}
+{% load i18n %}
 
 {% block title %} Regístrate {% endblock title %}
 
@@ -17,18 +18,18 @@
             <div class="card-body p-6">
               <form method="post" action=".">
                 {% csrf_token %}
-                <h3 class="text-uppercase text-center mb-5">Regístrate</h3>
+                <h3 class="text-uppercase text-center mb-5">{% trans "Regístrate" %}</h3>
 
                 <div class="mb-4">
 
-             <label for="form2Example18" class="form-label" style="width: 100%; margin: 0 auto; text-align: center; margin-bottom: 10px;">Nombre de usuario</label>
+             <label for="form2Example18" class="form-label" style="width: 100%; margin: 0 auto; text-align: center; margin-bottom: 10px;">{% trans "Nombre de usuario" %}</label>
               <div class="input-container" style="width: 80%; margin: 0 auto; text-align: center;">
 
                   {{ form.username }}
                 </div>
 
                 <div class="mb-4">
-                <label for="form2Example18" class="form-label" style="width: 100%; margin: 0 auto; text-align: center; margin-bottom: 10px;">Correo electrónico</label>
+                <label for="form2Example18" class="form-label" style="width: 100%; margin: 0 auto; text-align: center; margin-bottom: 10px;">{% trans "Correo electrónico" %}</label>
               <div class="input-container" style="width: 80%; margin: 0 auto; text-align: center;">
                   {{ form.email }}
                 </div>
@@ -36,7 +37,7 @@
                 <div class="mb-4">
                   <label for="form2Example18" class="form-label" 
                                       style="width: 100%; margin: 0 auto; text-align: center; margin-bottom: 10px;">
-                  Contraseña</label>
+                  {% trans "Contraseña" %}</label>
                   <div class="input-container" style="width: 80%; margin: 0 auto; text-align: center;">
                   {{ form.password1 }}
                 </div>
@@ -44,7 +45,7 @@
                 <div class="mb-4">
                 <label for="form2Example18" class="form-label" 
                                       style="width: 100%; margin: 0 auto; text-align: center; margin-bottom: 10px;">
-                  Confirmación de Contraseña</label>
+                  {% trans "Confirmación de Contraseña" %}</label>
                   <div class="input-container" style="width: 80%; margin: 0 auto; text-align: center;  margin-bottom: 10px; ">
     
                   {{ form.password2 }}
@@ -60,11 +61,11 @@
                 {% endif %}
 
                 <div class="form-group text-center">
-                  <button type="submit" class="btn btn-custom btn-lg text-body">Registrarse</button>
+                  <button type="submit" class="btn btn-custom btn-lg text-body">{% trans "Registrarse" %}</button>
                 </div>
               </form>
 
-              <p class="text-center text-muted mt-3">¿Ya tienes una cuenta? <a href="{% url 'core:login' %}" class="fw-bold text-body"><u>Inicia sesión aquí</u></a></p>
+              <p class="text-center text-muted mt-3">{% trans "¿Ya tienes una cuenta?" %} <a href="{% url 'core:login' %}" class="fw-bold text-body"><u>{% trans "Inicia sesión aquí" %}</u></a></p>
             </div>
           </div>
         </div>

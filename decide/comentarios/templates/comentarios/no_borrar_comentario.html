@@ -1,4 +1,6 @@
 {% extends 'base.html' %}
+{% load i18n %}
+
 {% block content %}
 <style>
     .content-container {
@@ -13,7 +15,7 @@
 </style>
 
 <div class="content-container">
-    <h2>No puedes borrar este comentario</h2>
-    <a href="{% url 'ver_comentarios' %}" class="btn btn-secondary">Volver a Comentarios</a>
+    <h2>{% trans "No puedes borrar este comentario" %}</h2>
+    <a href="{% url 'ver_comentarios' %}" class="btn btn-secondary">{% trans "Volver a Comentarios" %}</a>
 </div>
 {% endblock %}
