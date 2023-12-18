@@ -7,6 +7,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.test import Client, RequestFactory, TestCase
+from voting.forms import AuthForm, QuestionForm, QuestionOptionFormSet, VotingForm
 from voting.views import voting
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
@@ -26,6 +27,77 @@ from mixnet.models import Auth
 from voting.models import Voting, Question, QuestionOption
 from datetime import datetime
 from django.utils.translation import activate
+
+
+class VotingTests(TestCase):
+    def setUp(self):
+        # Crea un usuario para autenticación en las pruebas
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+        self.question = Question.objects.create(desc='Pregunta de prueba')
+        self.auth = Auth.objects.create(name='Nombre de autenticación', url='https://example.com')
+
+    def test_voting_view_get_request(self):
+
+        self.client.force_login(self.user)
+        # Prueba que la vista responde correctamente a una solicitud GET
+        response = self.client.get(reverse('create_voting'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'voting.html')
+        self.assertIsInstance(response.context['form'], VotingForm)
+
+class QuestionTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+    def test_question_view_authenticated_user(self):
+        # Prueba que la vista carga correctamente para un usuario autenticado
+        self.client.force_login(self.user)
+        response = self.client.get(reverse('new_question'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'new_question.html')
+        self.assertIsInstance(response.context['form'], QuestionForm)
+        self.assertIsInstance(response.context['formset'], QuestionOptionFormSet)
+
+class AuthTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user(username='testuser', password='testpassword')
+
+    def test_auth_view_get_request(self):
+        # Inicia sesión con el usuario de prueba
+        self.client.force_login(self.user)
+
+        # Prueba que la vista responde correctamente a una solicitud GET
+        response = self.client.get(reverse('new_auth'))
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'new_auth.html')
+        self.assertIsInstance(response.context['form'], AuthForm)
+
+    def test_auth_view_post_request_valid_form(self):
+        # Prueba que la vista redirige correctamente después de una solicitud POST con un formulario válido
+        self.client.force_login(self.user)
+
+        # Reemplaza esto con datos válidos para tu formulario
+        data = {'name': 'John Doe', 'url': 'https://example.com'}
+        response = self.client.post(reverse('new_auth'), data)
+        self.assertEqual(response.status_code, 302)  # 302 es el código de redirección
+        self.assertRedirects(response, reverse('close_windows'))
+
+    def test_auth_view_post_request_invalid_form(self):
+        # Prueba que la vista no permite enviar el formulario cuando está en un estado inválido
+        self.client.force_login(self.user)
+
+        # Datos que generan un formulario inválido automáticamente
+        data = {'name': '', 'url': 'Mal'}
+        response = self.client.post(reverse('new_auth'), data)
+
+        # Se espera que la vista regrese el mismo formulario, sin redirección
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'new_auth.html')
+        self.assertIsInstance(response.context['form'], AuthForm)
+
+        # Asegurarse de que el formulario no se ha guardado
+        self.assertFalse(Auth.objects.exists())
 
 
 class VotingCreationTests(TestCase):
