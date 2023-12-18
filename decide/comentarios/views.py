@@ -32,13 +32,12 @@ def agregar_comentario(request):
 
             if contiene_palabra_inapropiada(nuevo_comentario):
                 messages.warning(request, 'Tu comentario contiene palabras inapropiadas y puede ser eliminado. ¡Por favor, sé respetuoso!')
-
+                return redirect('ver_comentarios')
             form.save()
             return redirect('ver_comentarios')
     else:
         form = ComentarioForm()
     return render(request, 'comentarios/agregar_comentario.html', {'form': form})
-
 @login_required(login_url='/no_autenticado')
 def editar_comentario(request, comentario_id):
     comentario = get_object_or_404(Comentario, pk=comentario_id)
