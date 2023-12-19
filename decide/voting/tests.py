@@ -29,7 +29,6 @@ from django.utils.translation import activate
 
 class VotingTests(TestCase):
     def setUp(self):
-        # Crea un usuario para autenticación en las pruebas
         self.user = User.objects.create_user(username='testuser', password='testpassword')
 
         self.question = Question.objects.create(desc='Pregunta de prueba')
