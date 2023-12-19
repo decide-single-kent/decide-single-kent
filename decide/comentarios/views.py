@@ -1,12 +1,11 @@
 
 from django.shortcuts import render
 
-from django.shortcuts import render, redirect
+from django.shortcuts import redirect
 from .models import Comentario
 from .forms import ComentarioForm
 from django.shortcuts import get_object_or_404
 from django.utils import timezone
-from django.http import HttpResponse
 from django.http import HttpResponse, JsonResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -44,7 +43,7 @@ def editar_comentario(request, comentario_id):
     tiempo_transcurrido = timezone.now() - comentario.timestamp
     if tiempo_transcurrido.total_seconds() > 300:  # 5 minutos en segundos
         return render(request, 'comentarios/no_editar_comentario.html')
-    
+
     if request.method == 'POST':
         form = ComentarioForm(request.POST, instance=comentario)
         if form.is_valid():

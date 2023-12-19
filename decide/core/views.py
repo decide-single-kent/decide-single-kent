@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 
 
 
-from .forms import SignUpForm 
+from .forms import SignUpForm
 
 def home(request):
   if 'django_language' in request.session:

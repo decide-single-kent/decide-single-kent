@@ -52,4 +52,5 @@ class CensusAdmin(admin.ModelAdmin):
                 server.login(email, password)
                 server.send_message(em)
 
+
 admin.site.register(Census, CensusAdmin)

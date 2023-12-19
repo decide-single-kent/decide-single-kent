@@ -1,14 +1,12 @@
 import random
 import itertools
-from django.forms import ValidationError
 from django.urls import reverse
 from django.utils import timezone
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
-from django.test import Client, RequestFactory, TestCase
+from django.test import Client, TestCase
 from voting.forms import AuthForm, QuestionForm, QuestionOptionFormSet, VotingForm
-from voting.views import voting
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
 

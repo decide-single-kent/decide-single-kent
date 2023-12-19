@@ -59,7 +59,7 @@ class ComentariosViewsTestCase(TestCase):
         # Realiza una solicitud GET para ver los comentarios
         url = reverse('ver_comentarios')  # Ajusta el nombre de la vista según tu configuración
         response = self.client.get(url)
-        
+
         # Verifica que la respuesta sea un código 200 (OK)
         self.assertEqual(response.status_code, 200)
 
@@ -67,7 +67,7 @@ class ComentariosViewsTestCase(TestCase):
         self.assertContains(response, 'Comentario 1')
         self.assertContains(response, 'Comentario 2')
     def test_eliminar_comentario_view(self):
-    # Realiza una solicitud POST para eliminar el comentario
+        # Realiza una solicitud POST para eliminar el comentario
         url = reverse('borrar_comentario', args=[self.comentario.id])  # Utiliza el nombre correcto de la vista
         response = self.client.post(url)
 
