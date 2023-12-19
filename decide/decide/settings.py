@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.0/ref/settings/
 """
 
 import os
-from django.utils.translation import gettext_lazy as _
+import environ
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,29 +23,64 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = '^##ydkswfu0+=ofw0l#$kv^8n)0$i(qd&d&ol#p9!b$8*5%j1+'
 
+env = environ.Env(
+    DEBUG=(bool, False)
+)
+
+# Lee las variables de entorno desde un archivo .env
+environ.Env.read_env()
+
+# Obtén la contraseña desde el archivo .env
+PASSWORD = env('PASSWORD')
+EMAIL = env('EMAIL')
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
 ALLOWED_HOSTS = []
 
+STATIC_URL = '/static/'
+
 
 # Application definition
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
+    'django.contrib.sites',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-
     'corsheaders',
     'django_filters',
     'rest_framework',
     'rest_framework.authtoken',
     'rest_framework_swagger',
     'gateway',
-]
+    'comentarios',
+    'core',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.google',
+    ]
+
+SITE_ID = 3
+
+SOCIAL_ACCOUNT_PROVIDERS = {
+    'google' : {
+        'SCOPE':[
+            'profile' ,
+            'email',
+        ],
+        'AUTH_PARAMS' : {
+            'access_type': 'online',
+        },
+        'OAUTH_PKCE_ENABLED': True,
+    }
+}
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
@@ -57,6 +92,9 @@ REST_FRAMEWORK = {
 
 AUTHENTICATION_BACKENDS = [
     'base.backends.AuthBackend',
+    'django.contrib.auth.backends.ModelBackend',
+    'allauth.account.auth_backends.AuthenticationBackend',
+
 ]
 
 MODULES = [
@@ -69,6 +107,8 @@ MODULES = [
     'store',
     'visualizer',
     'voting',
+    'core',
+    'comentarios',
 ]
 
 BASEURL = 'http://localhost:8000'
@@ -83,6 +123,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware'
 ]
 
 
@@ -91,7 +132,7 @@ ROOT_URLCONF = 'decide.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -150,8 +191,9 @@ LANGUAGE_CODE = 'es'
 
 #cambiado por Alvaro 
 LANGUAGES = [
-    ('es', _('Spanish')),
-    ('en', _('English')),
+    ('es', 'Spanish'),
+    ('en', 'English'),
+    ('fr', 'French')
     
 ]
 
@@ -163,6 +205,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOCALE_PATHS = [
+    os.path.join(BASE_DIR, 'locale')
+]
+
 
 TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 
@@ -170,6 +216,8 @@ TEST_RUNNER = 'django_nose.NoseTestSuiteRunner'
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_REDIRECT_URL = '/'
 
 # number of bits for the key, all auths should use the same number of bits
 KEYBITS = 256
