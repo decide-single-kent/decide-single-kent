@@ -64,7 +64,6 @@ def borrar_comentario(request, comentario_id):
     tiempo_transcurrido = timezone.now() - comentario.timestamp
     if tiempo_transcurrido.total_seconds() > 300:  # 5 minutos en segundos
         return render(request, 'comentarios/no_borrar_comentario.html')
-    
     comentario.delete()
     return redirect('ver_comentarios')
 
