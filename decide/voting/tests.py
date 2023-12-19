@@ -38,7 +38,6 @@ class VotingTests(TestCase):
     def test_voting_view_get_request(self):
 
         self.client.force_login(self.user)
-        # Prueba que la vista responde correctamente a una solicitud GET
         response = self.client.get(reverse('create_voting'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'voting.html')
@@ -49,7 +48,6 @@ class QuestionTests(TestCase):
         self.user = User.objects.create_user(username='testuser', password='testpassword')
 
     def test_question_view_authenticated_user(self):
-        # Prueba que la vista carga correctamente para un usuario autenticado
         self.client.force_login(self.user)
         response = self.client.get(reverse('new_question'))
         self.assertEqual(response.status_code, 200)
@@ -62,39 +60,31 @@ class AuthTests(TestCase):
         self.user = User.objects.create_user(username='testuser', password='testpassword')
 
     def test_auth_view_get_request(self):
-        # Inicia sesión con el usuario de prueba
         self.client.force_login(self.user)
 
-        # Prueba que la vista responde correctamente a una solicitud GET
         response = self.client.get(reverse('new_auth'))
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'new_auth.html')
         self.assertIsInstance(response.context['form'], AuthForm)
 
     def test_auth_view_post_request_valid_form(self):
-        # Prueba que la vista redirige correctamente después de una solicitud POST con un formulario válido
         self.client.force_login(self.user)
 
-        # Reemplaza esto con datos válidos para tu formulario
         data = {'name': 'John Doe', 'url': 'https://example.com'}
         response = self.client.post(reverse('new_auth'), data)
-        self.assertEqual(response.status_code, 302)  # 302 es el código de redirección
+        self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, reverse('close_windows'))
 
     def test_auth_view_post_request_invalid_form(self):
-        # Prueba que la vista no permite enviar el formulario cuando está en un estado inválido
         self.client.force_login(self.user)
 
-        # Datos que generan un formulario inválido automáticamente
         data = {'name': '', 'url': 'Mal'}
         response = self.client.post(reverse('new_auth'), data)
 
-        # Se espera que la vista regrese el mismo formulario, sin redirección
         self.assertEqual(response.status_code, 200)
         self.assertTemplateUsed(response, 'new_auth.html')
         self.assertIsInstance(response.context['form'], AuthForm)
 
-        # Asegurarse de que el formulario no se ha guardado
         self.assertFalse(Auth.objects.exists())
 
 
@@ -110,17 +100,14 @@ class VotingCreationTests(TestCase):
         # Crear una pregunta con opciones
         self.question = Question.objects.create(desc='¿Cuál es tu color favorito?')
 
-        # Crear dos instancias de QuestionOption para representar dos opciones
         option1 = QuestionOption(question=self.question, option='Rojo')
         option1.save()
 
         option2 = QuestionOption(question=self.question, option='Azul')
         option2.save()
 
-        # Verificar que la pregunta se haya creado correctamente
         self.assertEqual(self.question.desc, '¿Cuál es tu color favorito?')
 
-        # Verificar que las opciones se hayan creado correctamente
         self.assertEqual(option1.option, 'Rojo')
         self.assertEqual(option2.option, 'Azul')
 
@@ -128,7 +115,6 @@ class VotingCreationTests(TestCase):
         # Crear un Auth válido
         self.auth = Auth.objects.create(name='Auth Test', url='https://auth.example.com', me=False)
 
-        # Verificar que el Auth se haya creado correctamente
         self.assertEqual(self.auth.name, 'Auth Test')
         self.assertEqual(self.auth.url, 'https://auth.example.com')
         self.assertFalse(self.auth.me)
@@ -167,7 +153,6 @@ class VotingCreationTests(TestCase):
 
         voting.auths.set([self.auth])
 
-        # Verificar que el comentario se haya creado correctamente
         self.assertEqual(voting.name, 'PruebaTest')
         self.assertEqual(voting.desc, 'Este es un test de prueba.')
         self.assertEqual(voting.question, self.question)
@@ -188,7 +173,7 @@ class VotingCreationTests(TestCase):
         unauthenticated_client = Client()
 
         response = unauthenticated_client.post(reverse('create_voting'), form_data)
-        self.assertEqual(response.status_code, 302)  # Verificar redirección a la página de inicio de sesión
+        self.assertEqual(response.status_code, 302)
 
         # Verificar que la votación no se haya creado
         self.assertFalse(Voting.objects.filter(name='Voting Test').exists())
