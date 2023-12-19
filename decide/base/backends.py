@@ -1,7 +1,5 @@
 from django.contrib.auth.backends import ModelBackend
-
 from base import mods
-
 
 class AuthBackend(ModelBackend):
     '''
@@ -14,11 +12,9 @@ class AuthBackend(ModelBackend):
     '''
 
     def authenticate(self, request, username=None, password=None, **kwargs):
-        u = super().authenticate(request, username=username,
-                                 password=password, **kwargs)
+        u = super().authenticate(request, username=username, password=password, **kwargs)
 
-        # only doing this for the admin web interface
-        if u and request.content_type == 'application/x-www-form-urlencoded':
+        if u and request and request.content_type == 'application/x-www-form-urlencoded':
             data = {
                 'username': username,
                 'password': password,

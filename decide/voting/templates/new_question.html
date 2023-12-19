@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-title text-center">{% trans "Nueva Pregunta" %}</h2>
+                    <form method="post" action="{% url 'new_question' %}" class="mt-3" id="question-form">
+                        {% csrf_token %}
+                        {{ form.as_p }}
+                        {{ formset.as_table }}
+                        <button type="submit" class="btn btn-primary w-100 mt-3" id="create-question">{% trans "Crear Pregunta" %}</button>   
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

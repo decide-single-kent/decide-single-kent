@@ -1,9 +1,15 @@
 from django.contrib.auth.models import User
 from rest_framework.test import APIClient
 from rest_framework.test import APITestCase
+from django.urls import reverse
+from django.test import TestCase
 
 from base import mods
+from .models import Auth
+from .serializers import AuthSerializer
 
+from django.utils.translation import activate
+from django.utils.translation import gettext as _
 
 class BaseTestCase(APITestCase):
 
@@ -34,3 +40,30 @@ class BaseTestCase(APITestCase):
 
     def logout(self):
         self.client.credentials()
+
+class AuthAPITestCase(BaseTestCase):
+    def test_serialize_auth(self):
+        auth = Auth.objects.create(name='Test Auth', url='https://test.com', me=False)
+        serializer = AuthSerializer(auth)
+        expected_data = {'name': 'Test Auth', 'url': 'https://test.com', 'me': False}
+        self.assertEqual(serializer.data, expected_data)
+
+class I18nTestCase(TestCase):
+
+    def test_translations_index(self):
+        languages = ['es', 'en', 'fr']
+
+        for language in languages:
+            with self.subTest(language=language):
+                activate(language)
+
+                # Realizar una solicitud a una vista que contenga cadenas traducibles
+                url = reverse('core:index')  # Ajusta según tus rutas reales
+                response = self.client.get(url)
+
+                self.assertEqual(response.status_code, 200)
+
+                # Verificar que las cadenas traducidas estén presentes en la respuesta
+                self.assertContains(response, _('Home'))
+                self.assertContains(response, _('¿Quienes somos?'))
+                self.assertContains(response, _('Bienvenido'))

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load i18n %}
+
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>{% trans "Pantalla no autenticado" %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="css/style.css" rel="stylesheet">
+    <style>
+        header {
+            margin-bottom: 20px; /* Ajusta el valor según sea necesario */
+        }
+
+        .page-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 70vh;
+            background-color: #f8f9fa;
+        }
+
+        .content-container {
+            text-align: center;
+            padding: 100px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background-color: #fff;
+        }
+
+        .btn-link {
+            color: #007bff; /* Color del enlace (azul por defecto) */
+            text-decoration: none;
+        }
+
+        .btn-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="page-container">
+        <div class="content-container">
+            <h2>{% trans "Tienes que iniciar sesión para visualizar esta pantalla" %}</h2>
+            <p class="text-muted mt-3">{% trans "¿Ya tienes una cuenta?" %} <a href="{% url 'core:login' %}" class="btn-link">{% trans "Inicia sesión aquí" %}</a></p>
+            <p class="text-muted mt-3">{% trans "No tienes una cuenta todavía?" %} <a href="{% url 'core:signup' %}" class="link-info btn-link">{% trans "Regístrate aquí" %}</a></p>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

@@ -1,0 +1,126 @@
+{% extends 'base.html' %}
+
+{% load i18n %}
+
+{% block description %}{% trans "Votaciones finalizadas y comentarios" %}{% endblock description %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<table class="table mx-auto">
+    <thead>
+      <tr>
+        <th>{% trans "ID de la votación" %}</th>
+        <th>{% trans "Nombre de la votación" %}</th>
+        <th>{% trans "Fecha de inicio" %}</th>
+        <th>{% trans "Fecha de fin" %}</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for vot in votings %}
+        <tr>
+          <td class="destino-clickable"><a href="{% url 'visualizer' voting_id=vot.id %}">{{ vot.id }}</a></td>
+          <td>{{ vot.name }}</td>
+          <td>{{ vot.start_date }}</td>
+          <td>{{ vot.end_date }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+<section >
+
+    <div class="container my-5 py-5">
+    
+        <div class="row justify-content-center" >
+
+            <div class="col-md-11 col-lg-9 col-xl-7">
+                <a class="btn btn-secondary mt-3" href="{% url 'agregar_comentario' %}" style="margin-left:220px; margin-bottom:20px">{% trans "Agregar Comentario" %}</a>
+
+
+                <ul class="list-group">
+                    {% for comentario in comentarios %}
+                        <li class="list-group-item">
+                            <div class="d-flex flex-start mb-4">
+                                <img class="rounded-circle shadow-1-strong me-3"
+                                     src="https://mdbcdn.b-cdn.net/img/Photos/Avatars/img%20(32).webp" alt="avatar" width="30"
+                                     height="35" style="margin-top: 20px;"/>
+                                <div class="card w-100">
+                                    <div class="card-body p-4">
+                                        <div class="">
+                                            <h5>{{ comentario.autor }}</h5>
+                                            <p class="small">{{ comentario.texto }}</p>
+                                            <div class="d-flex justify-content-between align-items-center">
+                                                <div class="d-flex align-items-center">
+                                                    <a href="javascript:void(0);" class="link-muted me-2 votar-btn"
+                                                       data-comentario-id="{{ comentario.id }}" data-voto="positivo">
+                                                        <i class="fas fa-thumbs-up me-1"></i>
+                                                        <span id="votos-positivos-{{ comentario.id }}">{{ comentario.votos_positivos }}</span>
+                                                    </a>
+                                                    <a href="javascript:void(0);" class="link-muted votar-btn"
+                                                       data-comentario-id="{{ comentario.id }}" data-voto="negativo">
+                                                        <i class="fas fa-thumbs-down me-1"></i>
+                                                        <span id="votos-negativos-{{ comentario.id }}">{{ comentario.votos_negativos }}</span>
+                                                    </a>
+                                                </div>
+                                                <div class="d-flex align-items-center">
+                                                    <a href="{% url 'editar_comentario' comentario.id %}" class="btn btn-sm btn-warning me-2">
+                                                        <i class="fas fa-edit me-1"></i>{% trans "Editar" %}
+                                                    </a>
+                                                    <a href="{% url 'borrar_comentario' comentario.id %}" class="btn btn-sm btn-danger">
+                                                        <i class="fas fa-trash me-1"></i>{% trans "Borrar" %}
+                                                    </a>
+                                                     <a href="{% url 'crear_reporte' comentario.id %}" class="btn btn-sm btn-info me-2">
+                                                          <i class="fas fa-flag me-1"></i>{% trans "Reportar" %}
+                                                      </a>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul> 
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+
+document.addEventListener("DOMContentLoaded", function () {
+    // Obtener todos los elementos con la clase 'votar-btn'
+    var votarButtons = document.querySelectorAll('.votar-btn');
+
+    // Agregar un evento de clic a cada botón
+    votarButtons.forEach(function (button) {
+        button.addEventListener('click', function () {
+            // Obtener el comentario_id y el voto del atributo data
+            var comentarioId = button.getAttribute('data-comentario-id');
+            var voto = button.getAttribute('data-voto');
+
+            // Verificar si comentarioId está presente y es un número válido
+            if (comentarioId && !isNaN(comentarioId)) {
+                // Realizar la petición AJAX para votar
+                fetch(`/votar_comentario/${comentarioId}/${voto}/`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Actualizar los contadores de votos en la página
+                        document.getElementById(`votos-positivos-${comentarioId}`).innerText = data.votos_positivos;
+                        document.getElementById(`votos-negativos-${comentarioId}`).innerText = data.votos_negativos;
+                    })
+                    .catch(error => console.error('Error al votar:', error));
+            } else {
+                console.error('Error: comentarioId no es válido');
+            }
+        });
+    });
+});
+
+</script>
+
+
+{% endblock %}
+
